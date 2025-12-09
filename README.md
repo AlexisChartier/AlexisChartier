@@ -6,10 +6,9 @@
 
 Je suis un développeur passionné par la création de solutions innovantes. Mon objectif est de construire des applications performantes et scalables.
 
-- 🔭 Je travaille actuellement sur **[Nom de ton projet principal ou "des projets personnels"]**.
+- 🔭 J'étudie actuellement l'informatique & gestion à **Polytech Montpellier**.
 - 🌱 J'apprends actuellement **[Technologie que tu étudies, ex: Rust, Next.js]**.
-- 👯 Je cherche à collaborer sur **[Type de projets Open Source]**.
-- 📫 Comment me joindre : **[Ton Email ou Lien LinkedIn]**.
+- 📫 Comment me joindre : **alexischartier30130pse@gmail.com**.
 
 ---
 
@@ -41,10 +40,7 @@ Je suis un développeur passionné par la création de solutions innovantes. Mon
 ### 🔗 Connectons-nous
 
 <p align="left">
-  <a href="https://linkedin.com/in/ton-profil" target="blank">
+  <a href="[https://linkedin.com/in/ton-profil](https://www.linkedin.com/in/alexis-chartier-8120671b7/)" target="blank">
     <img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="alexischartier" />
-  </a>
-  <a href="https://twitter.com/ton-profil" target="blank">
-    <img align="center" src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="alexischartier" />
   </a>
 </p>
