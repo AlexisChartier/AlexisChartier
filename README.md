@@ -6,7 +6,7 @@
 
 Étudiant ingénieur en **Informatique & Gestion** à Polytech Montpellier, je suis passionné par le développement Backend, la Data et l'Intelligence Artificielle.
 
-🎯 **Actuellement à la recherche d'un stage de fin d'études (5-6 mois) à partir de fin février 2025.**
+🎯 **Actuellement à la recherche d'un stage de fin d'études (5-6 mois) à partir de fin février 2026.**
 
 - 🔭 J'étudie à **Polytech Montpellier** (Promo 2026).
 - 💼 Mes expériences précédentes : **Data Ops** chez Hydrosciences et **Back-End Dev** chez INRAE.
