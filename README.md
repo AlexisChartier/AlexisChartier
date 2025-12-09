@@ -57,7 +57,7 @@ Voici quelques projets sur lesquels j'ai travaillé :
 ### 📊 Mes Statistiques GitHub
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=AlexisChartier&show_icons=true&theme=tokyonight" height="180" alt="Stats GitHub" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=AlexisChartier&theme=tokyonight" height="180" alt="Streak Stats" />
   
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AlexisChartier&layout=compact&theme=tokyonight" height="180" alt="Langages Top" />
 </div>
