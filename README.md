@@ -1,7 +1,3 @@
-<div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Alexis%20Chartier&fontSize=80" width="100%"/>
-</div>
-
 ### 👋 
 
 Software Engineer, passionné par le développement Backend, la sécurité applicative et l'architecture de systèmes distribués.
@@ -43,7 +39,7 @@ Software Engineer, passionné par le développement Backend, la sécurité appli
   <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
 </p>
 
-**Sécurité**
+**Authentification**
 <p align="left">
   <img src="https://img.shields.io/badge/OAuth2/OIDC-4A90D9?style=for-the-badge&logo=openid&logoColor=white" />
   <img src="https://img.shields.io/badge/SAML2-76B900?style=for-the-badge&logo=saml&logoColor=white" />
