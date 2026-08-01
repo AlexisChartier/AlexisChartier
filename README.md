@@ -8,8 +8,8 @@ Software Engineer, passionné par le développement Backend, la sécurité appli
 
 🎯 **En recherche d'emploi**
 
-- 🔭 J'étudie à **Polytech Montpellier** (Promo 2026).
-- 💼 Mes expériences : **Back-End Dev** chez Infomaniak, **Data Ops** chez Hydrosciences, **Back-End Dev** chez INRAE.
+- 🔭 Diplôme d'ingénieur **Polytech Montpellier** (Informatique & Gestion), DUT Informatique **IUT Montpellier Sète**
+- 💼 Mes expériences : **Back-End Dev PHP Laravel** chez Infomaniak (Genève), **Data Ops** chez Hydrosciences (Montpellier), **Back-End Dev Java Springboot** chez INRAE (Avignon).
 - 🗣️ Langues : Français (Natif) | Anglais (C1 - TOEIC 940) | Espagnol (B1).
 - 📫 Me contacter : **alexischartier30130pse@gmail.com**.
 
