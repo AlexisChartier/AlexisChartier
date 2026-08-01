@@ -2,16 +2,16 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Alexis%20Chartier&fontSize=80" width="100%"/>
 </div>
 
-### 👋 Salut, je suis Alexis !
+### 👋 
 
-Étudiant ingénieur en **Informatique & Gestion** à Polytech Montpellier, je suis passionné par le développement Backend, la Data et l'Intelligence Artificielle.
+Software Engineer, passionné par le développement Backend, la sécurité applicative et l'architecture de systèmes distribués.
 
-🎯 **Actuellement à la recherche d'un stage de fin d'études (5-6 mois) à partir de fin février 2026.**
+🎯 **En recherche d'emploi**
 
 - 🔭 J'étudie à **Polytech Montpellier** (Promo 2026).
-- 💼 Mes expériences précédentes : **Data Ops** chez Hydrosciences et **Back-End Dev** chez INRAE.
-- 🗣️ Langues : Français (Natif) | Anglais (C1 - TOEIC 940).
-- 📫 Me contacter : **alexis.chartier@etu.umontpellier.fr**.
+- 💼 Mes expériences : **Back-End Dev** chez Infomaniak, **Data Ops** chez Hydrosciences, **Back-End Dev** chez INRAE.
+- 🗣️ Langues : Français (Natif) | Anglais (C1 - TOEIC 940) | Espagnol (B1).
+- 📫 Me contacter : **alexischartier30130pse@gmail.com**.
 
 ---
 
@@ -19,12 +19,13 @@
 
 **Langages & Backend**
 <p align="left">
+  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" />
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" />
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" />
   <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white" />
-  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" />
+  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
 </p>
 
 **Frontend & Web**
@@ -34,11 +35,27 @@
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
 </p>
 
-**Data, DevOps & Outils**
+**Bases de données**
+<p align="left">
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white" />
+  <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
+</p>
+
+**Sécurité**
+<p align="left">
+  <img src="https://img.shields.io/badge/OAuth2/OIDC-4A90D9?style=for-the-badge&logo=openid&logoColor=white" />
+  <img src="https://img.shields.io/badge/SAML2-76B900?style=for-the-badge&logo=saml&logoColor=white" />
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" />
+  <img src="https://img.shields.io/badge/2FA-FF6B35?style=for-the-badge&logo=2fa&logoColor=white" />
+</p>
+
+**DevOps & Outils**
 <p align="left">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
-  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
-  <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
+  <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" />
+  <img src="https://img.shields.io/badge/GitLab_CI/CD-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white" />
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
 </p>
 
