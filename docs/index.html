@@ -11,434 +11,411 @@
       theme: {
         extend: {
           colors: {
-            amber: { DEFAULT: '#f59e0b', light: '#fbbf24', dim: '#b45309' },
-            coal: { 950: '#08080a', 900: '#0c0c0f', 850: '#111114', 800: '#16161a', 700: '#1e1e24', 600: '#2a2a32', 500: '#3a3a44' },
-            warm: { DEFAULT: '#a8a29e', dim: '#78716c' },
+            navy: {
+              950: '#02040a',
+              900: '#0a0f1e',
+              850: '#0d1322',
+              800: '#111827',
+              700: '#1a2236',
+              600: '#242d44',
+              500: '#2e3950',
+            },
+            accent: {
+              DEFAULT: '#64ffda',
+              dark: '#23a993',
+            },
           },
           fontFamily: {
-            display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-            mono: ['"JetBrains Mono"', '"SF Mono"', 'Consolas', 'monospace'],
+            mono: ['"SF Mono"', '"Fira Code"', 'Consolas', 'monospace'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
           },
         }
       }
     }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .font-mono { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    .nav-link { position: relative; }
+    .nav-link::before {
+      content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      width: 2px; height: 0; background: #64ffda; transition: height 0.3s ease;
+    }
+    .nav-link.active::before, .nav-link:hover::before { height: 100%; }
+    .nav-link.active { color: #64ffda; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease-out forwards; }
+    .fade-up-delay-1 { animation: fadeUp 0.6s ease-out 0.1s forwards; opacity: 0; }
+    .fade-up-delay-2 { animation: fadeUp 0.6s ease-out 0.2s forwards; opacity: 0; }
+    .fade-up-delay-3 { animation: fadeUp 0.6s ease-out 0.3s forwards; opacity: 0; }
+    .card-hover { transition: all 0.25s ease; }
+    .card-hover:hover { transform: translateY(-4px); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0f1e; }
+    ::-webkit-scrollbar-thumb { background: #2e3950; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #64ffda; }
+  </style>
 </head>
-<body class="bg-coal-900 text-warm antialiased" data-page="index">
-
-  <!-- Top status bar -->
-  <div class="status-bar fixed top-0 left-0 right-0 z-50 lg:pl-64">
-    <span class="status-dot bg-green-400 glow-pulse"></span>
-    <span>SYSTEM ONLINE</span>
-    <span class="text-coal-600">·</span>
-    <span id="clock">--:--:--</span>
-    <span class="text-coal-600">·</span>
-    <span class="hidden sm:inline">alexis@chartier:~$</span>
-    <span class="cursor-blink hidden sm:inline"></span>
-    <span class="ml-auto hidden md:inline text-warm-dim">Montpellier, FR · 43.6°N 3.8°E</span>
-  </div>
+<body class="bg-navy-900 text-slate-300 antialiased">
 
   <!-- Mobile menu button -->
-  <button id="menu-btn" class="fixed top-12 right-6 z-50 lg:hidden text-amber p-2" aria-label="Menu">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+  <button id="menu-btn" class="fixed top-6 right-6 z-50 lg:hidden text-accent p-2" aria-label="Menu">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
   </button>
 
   <!-- Sidebar -->
-  <aside id="sidebar" class="fixed top-8 left-0 h-screen w-64 bg-coal-950 border-r border-coal-700/50 flex flex-col z-40 -translate-x-full lg:translate-x-0 transition-transform duration-300">
+  <aside id="sidebar" class="fixed top-0 left-0 h-screen w-64 bg-navy-950 border-r border-navy-600/40 flex flex-col z-40 -translate-x-full lg:translate-x-0 transition-transform duration-300">
     <div class="p-8 flex-1 flex flex-col">
-      <!-- Logo / Identity -->
-      <a href="index.html" class="block mb-10 group">
-        <div class="font-display text-xl font-bold text-amber tracking-tight">AC</div>
-        <div class="font-mono text-[0.65rem] text-warm-dim mt-1 group-hover:text-warm transition">./alexix-chartier</div>
+      <a href="index.html" class="text-accent font-mono text-lg font-semibold hover:opacity-80 transition mb-12">
+        Alexis Chartier
       </a>
-
-      <nav class="flex flex-col gap-0.5 font-mono text-sm">
-        <a href="#about" class="nav-link active py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">01</span>About</a>
-        <a href="#stats" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">02</span>Stats</a>
-        <a href="#stack" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">03</span>Stack</a>
-        <a href="#projects" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">04</span>Projets</a>
-        <a href="#experience" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">05</span>XP</a>
-        <a href="#contact" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">06</span>Contact</a>
+      <nav class="flex flex-col gap-1 font-mono text-sm">
+        <a href="#about" class="nav-link active py-2 pl-6 text-slate-400 hover:text-accent transition"><span class="text-accent/40 mr-2">01.</span>À propos</a>
+        <a href="#stats" class="nav-link py-2 pl-6 text-slate-400 hover:text-accent transition"><span class="text-accent/40 mr-2">02.</span>Stats</a>
+        <a href="#stack" class="nav-link py-2 pl-6 text-slate-400 hover:text-accent transition"><span class="text-accent/40 mr-2">03.</span>Stack</a>
+        <a href="#projects" class="nav-link py-2 pl-6 text-slate-400 hover:text-accent transition"><span class="text-accent/40 mr-2">04.</span>Projets</a>
+        <a href="#experience" class="nav-link py-2 pl-6 text-slate-400 hover:text-accent transition"><span class="text-accent/40 mr-2">05.</span>Expériences</a>
+        <a href="#contact" class="nav-link py-2 pl-6 text-slate-400 hover:text-accent transition"><span class="text-accent/40 mr-2">06.</span>Contact</a>
       </nav>
-
-      <div class="mt-auto flex flex-col gap-5">
+      <div class="mt-auto flex flex-col gap-4">
         <div class="flex gap-4">
-          <a href="https://github.com/AlexisChartier" target="_blank" class="text-warm-dim hover:text-amber transition" aria-label="GitHub">
-            <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <a href="https://github.com/AlexisChartier" target="_blank" class="text-slate-400 hover:text-accent transition" aria-label="GitHub">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </a>
-          <a href="https://www.linkedin.com/in/alexis-chartier-8120671b7/" target="_blank" class="text-warm-dim hover:text-amber transition" aria-label="LinkedIn">
-            <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          <a href="https://www.linkedin.com/in/alexis-chartier-8120671b7/" target="_blank" class="text-slate-400 hover:text-accent transition" aria-label="LinkedIn">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
           </a>
-          <a href="mailto:alexischartier30130pse@gmail.com" class="text-warm-dim hover:text-amber transition" aria-label="Email">
-            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <a href="mailto:alexischartier30130pse@gmail.com" class="text-slate-400 hover:text-accent transition" aria-label="Email">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           </a>
         </div>
-        <a href="mailto:alexischartier30130pse@gmail.com" class="font-mono text-xs text-amber border border-amber/40 hover:bg-amber/10 transition px-4 py-2 text-center rounded">
-          ./contact.sh
+        <a href="mailto:alexischartier30130pse@gmail.com" class="font-mono text-xs text-accent border border-accent/40 rounded px-4 py-2 text-center hover:bg-accent/10 transition">
+          Me contacter
         </a>
-        <div class="font-mono text-[0.65rem] text-warm-dim/60 leading-relaxed">
-          Polytech Montpellier<br>
-          Promo 2026 · Ing. Informatique<br>
-          & Gestion
-        </div>
       </div>
     </div>
   </aside>
 
-  <!-- Mobile overlay -->
-  <div id="sidebar-overlay" class="fixed inset-0 bg-coal-950/80 z-30 hidden lg:hidden"></div>
+  <!-- Mobile sidebar overlay -->
+  <div id="sidebar-overlay" class="fixed inset-0 bg-navy-950/80 z-30 hidden lg:hidden"></div>
 
-  <!-- Main -->
-  <main class="lg:ml-64 blueprint-grid">
+  <!-- Main content -->
+  <main class="lg:ml-64 px-6 md:px-12 lg:px-20">
 
-    <!-- HERO -->
-    <section id="about" class="min-h-screen flex items-center px-6 md:px-12 lg:px-20 pt-16">
+    <!-- About / Hero -->
+    <section id="about" class="min-h-screen flex items-center pt-20 lg:pt-0">
       <div class="max-w-3xl">
-        <div class="font-mono text-xs text-amber/60 mb-6 fade-up">
-          <span class="text-warm-dim">$</span> whoami<span class="cursor-blink"></span>
-        </div>
-        <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-warm mb-2 fade-up-d1 tracking-tight">
-          Alexis<br>Chartier<span class="text-amber">.</span>
+        <p class="font-mono text-accent text-sm mb-5 fade-up">Bonjour, je suis</p>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-100 mb-4 fade-up-delay-1">
+          Alexis Chartier.
         </h1>
-        <h2 class="font-display text-xl md:text-2xl lg:text-3xl text-warm-dim mb-8 fade-up-d2 font-light">
-          <span class="text-warm-dim/60">&gt;</span> Backend Engineer <span class="text-amber">·</span> Security <span class="text-amber">·</span> Distributed Systems
-        </h2>
-        <p class="text-warm/80 text-base md:text-lg max-w-xl leading-relaxed mb-8 fade-up-d3">
-          Ingénieur en <strong class="text-warm">Informatique & Gestion</strong> (Polytech Montpellier, promo 2026),
-          passionné par le développement <strong class="text-amber">Backend</strong>, la
-          <strong class="text-amber">sécurité applicative</strong> et l'architecture de
-          <strong class="text-amber">systèmes distribués</strong>.
+        <p class="text-slate-400 text-lg max-w-xl leading-relaxed mb-8 fade-up-delay-3">
+          Ingénieur en <strong class="text-slate-200">Informatique &amp; Gestion</strong> (Polytech Montpellier, promo 2026),
+          passionné par le développement <strong class="text-slate-200">Backend</strong>, la
+          <strong class="text-slate-200">sécurité applicative</strong> et l'architecture de
+          <strong class="text-slate-200">systèmes distribués</strong>.
         </p>
-        <div class="flex flex-wrap gap-3 fade-up-d4">
-          <span class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-1.5 rounded text-sm font-mono">
+        <div class="flex flex-wrap gap-3 fade-up-delay-3">
+          <span class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-1.5 rounded-full text-sm font-medium">
             <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            open_to_work
+            En recherche d'emploi
           </span>
-          <span class="inline-flex items-center gap-2 bg-amber/10 border border-amber/30 text-amber px-4 py-1.5 rounded text-sm font-mono">
-            stage @ Infomaniak · Mars-Août 2026
+          <span class="inline-flex items-center gap-2 bg-accent/10 border border-accent/30 text-accent px-4 py-1.5 rounded-full text-sm">
+            Stage de fin d'études @ Infomaniak (Mars-Août 2026)
           </span>
         </div>
-        <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6 fade-up-d4 font-mono text-xs">
-          <div>
-            <div class="text-amber/40 mb-1">// degree</div>
-            <div class="text-warm/80">Polytech Montpellier</div>
-          </div>
-          <div>
-            <div class="text-amber/40 mb-1">// languages</div>
-            <div class="text-warm/80">FR · EN C1 · ES B1</div>
-          </div>
-          <div>
-            <div class="text-amber/40 mb-1">// toeic</div>
-            <div class="text-warm/80">940/990</div>
-          </div>
-          <div>
-            <div class="text-amber/40 mb-1">// status</div>
-            <div class="text-green-400">hiring</div>
-          </div>
+        <div class="mt-12 flex flex-wrap gap-6 text-sm text-slate-500 fade-up-delay-3">
+          <div class="flex items-center gap-2"><span>🎓</span> Polytech Montpellier</div>
+          <div class="flex items-center gap-2"><span>🗣️</span> FR · EN (C1) · ES (B1)</div>
+          <div class="flex items-center gap-2"><span>⭐</span> TOEIC 940/990</div>
         </div>
       </div>
     </section>
 
-    <!-- STATS -->
-    <section id="stats" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40">
-      <div class="section-divider">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">02</span> Git Stats</h2>
-      </div>
+    <!-- Stats -->
+    <section id="stats" class="py-20 border-t border-navy-600/30">
+      <h2 class="font-mono text-sm text-accent mb-2"><span class="text-accent/40">02.</span> Statistiques GitHub</h2>
+      <div class="h-px w-20 bg-navy-600 mb-10"></div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded p-5 text-center transition hover:border-amber/40">
-          <div class="text-4xl font-bold text-amber font-mono">307</div>
-          <div class="text-[0.7rem] text-warm-dim mt-1 font-mono">contributions_12m</div>
+        <div class="bg-navy-850 border border-navy-600/40 rounded-xl p-5 text-center card-hover hover:border-accent/50">
+          <div class="text-3xl font-bold text-accent font-mono">307</div>
+          <div class="text-xs text-slate-500 mt-1">Contributions (12 mois)</div>
         </div>
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded p-5 text-center transition hover:border-amber/40">
-          <div class="text-4xl font-bold text-amber font-mono">248</div>
-          <div class="text-[0.7rem] text-warm-dim mt-1 font-mono">commits</div>
+        <div class="bg-navy-850 border border-navy-600/40 rounded-xl p-5 text-center card-hover hover:border-accent/50">
+          <div class="text-3xl font-bold text-accent font-mono">248</div>
+          <div class="text-xs text-slate-500 mt-1">Commits</div>
         </div>
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded p-5 text-center transition hover:border-amber/40">
-          <div class="text-4xl font-bold text-amber font-mono">41</div>
-          <div class="text-[0.7rem] text-warm-dim mt-1 font-mono">pull_requests</div>
+        <div class="bg-navy-850 border border-navy-600/40 rounded-xl p-5 text-center card-hover hover:border-accent/50">
+          <div class="text-3xl font-bold text-accent font-mono">41</div>
+          <div class="text-xs text-slate-500 mt-1">Pull Requests</div>
         </div>
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded p-5 text-center transition hover:border-amber/40">
-          <div class="text-4xl font-bold text-amber font-mono">32+</div>
-          <div class="text-[0.7rem] text-warm-dim mt-1 font-mono">public_repos</div>
+        <div class="bg-navy-850 border border-navy-600/40 rounded-xl p-5 text-center card-hover hover:border-accent/50">
+          <div class="text-3xl font-bold text-accent font-mono">32+</div>
+          <div class="text-xs text-slate-500 mt-1">Dépôts publics</div>
         </div>
       </div>
       <div class="flex justify-center">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=AlexisChartier&theme=tokyonight" alt="GitHub Streak" class="rounded-lg max-w-full opacity-90">
+        <img src="https://github-readme-streak-stats.herokuapp.com/?user=AlexisChartier&theme=tokyonight" alt="GitHub Streak" class="rounded-xl max-w-full">
       </div>
     </section>
 
-    <!-- STACK -->
-    <section id="stack" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40">
-      <div class="section-divider">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">03</span> Tech Stack</h2>
-      </div>
+    <!-- Stack -->
+    <section id="stack" class="py-20 border-t border-navy-600/30">
+      <h2 class="font-mono text-sm text-accent mb-2"><span class="text-accent/40">03.</span> Stack Technique</h2>
+      <div class="h-px w-20 bg-navy-600 mb-10"></div>
       <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
         <div>
-          <h3 class="font-mono text-[0.7rem] text-warm-dim uppercase tracking-[0.2em] mb-4">// Langages & Backend</h3>
+          <h3 class="font-mono text-xs text-slate-500 uppercase tracking-widest mb-4">Langages & Backend</h3>
           <div class="flex flex-wrap gap-2">
             <span class="tech-chip">PHP</span><span class="tech-chip">Laravel</span><span class="tech-chip">Java</span>
             <span class="tech-chip">Spring Boot</span><span class="tech-chip">Python</span><span class="tech-chip">Node.js</span>
             <span class="tech-chip">C++</span><span class="tech-chip">Scala</span>
           </div>
-          <h3 class="font-mono text-[0.7rem] text-warm-dim uppercase tracking-[0.2em] mb-4 mt-8">// Frontend & Mobile</h3>
+          <h3 class="font-mono text-xs text-slate-500 uppercase tracking-widest mb-4 mt-8">Frontend & Mobile</h3>
           <div class="flex flex-wrap gap-2">
             <span class="tech-chip">React</span><span class="tech-chip">Angular</span><span class="tech-chip">JavaScript</span>
             <span class="tech-chip">Swift</span><span class="tech-chip">SwiftUI</span>
           </div>
         </div>
         <div>
-          <h3 class="font-mono text-[0.7rem] text-warm-dim uppercase tracking-[0.2em] mb-4">// Databases</h3>
+          <h3 class="font-mono text-xs text-slate-500 uppercase tracking-widest mb-4">Bases de données</h3>
           <div class="flex flex-wrap gap-2">
             <span class="tech-chip">MySQL</span><span class="tech-chip">MariaDB</span><span class="tech-chip">MongoDB</span>
             <span class="tech-chip">Redis</span><span class="tech-chip">PostgreSQL</span><span class="tech-chip">Qdrant</span>
           </div>
-          <h3 class="font-mono text-[0.7rem] text-warm-dim uppercase tracking-[0.2em] mb-4 mt-8">// Security & DevOps</h3>
+          <h3 class="font-mono text-xs text-slate-500 uppercase tracking-widest mb-4 mt-8">Sécurité & DevOps</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="tech-chip">OAuth2</span><span class="tech-chip">SAML2</span><span class="tech-chip">JWT</span>
-            <span class="tech-chip">2FA</span><span class="tech-chip">Docker</span><span class="tech-chip">K8s</span>
-            <span class="tech-chip">GitLab CI</span><span class="tech-chip">Git</span>
+            <span class="tech-chip">OAuth2/OIDC</span><span class="tech-chip">SAML2</span><span class="tech-chip">JWT</span>
+            <span class="tech-chip">2FA</span><span class="tech-chip">Docker</span><span class="tech-chip">Kubernetes</span>
+            <span class="tech-chip">GitLab CI/CD</span><span class="tech-chip">Git</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40">
-      <div class="section-divider">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">04</span> Projects</h2>
-      </div>
-      <div class="grid md:grid-cols-2 gap-5">
+    <!-- Projects -->
+    <section id="projects" class="py-20 border-t border-navy-600/30">
+      <h2 class="font-mono text-sm text-accent mb-2"><span class="text-accent/40">04.</span> Projets & Réalisations</h2>
+      <div class="h-px w-20 bg-navy-600 mb-10"></div>
+      <div class="grid md:grid-cols-2 gap-6">
 
         <!-- ShopyVerse -->
-        <a href="projects/shopyverse.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🤖</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">ShopyVerse</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">académique · 2025-12</p>
-              </div>
+        <a href="projects/shopyverse.html" class="group bg-navy-850 border border-navy-600/40 rounded-xl p-6 card-hover hover:border-accent/50 block">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-3xl">🤖</span>
+            <div>
+              <h3 class="text-slate-100 font-semibold group-hover:text-accent transition text-lg">ShopyVerse — E-commerce IA</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Projet académique · Déc. 2025</p>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">01</span>
           </div>
-          <p class="text-sm text-warm/70 mb-4">Microservices IA : reco LLM (Llama-3.1 / LangChain), chatbot RAG (Qdrant), API core NestJS.</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">Python</span><span class="tech-chip">LangChain</span><span class="tech-chip">NestJS</span><span class="tech-chip">Qdrant</span>
+          <p class="text-sm text-slate-400 mb-4">Microservices IA : reco LLM (Llama-3.1 / LangChain), chatbot RAG (Qdrant), API core NestJS.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Python</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">LangChain</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">NestJS</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Qdrant</span>
           </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+          <span class="font-mono text-xs text-slate-500 group-hover:text-accent transition">En savoir plus →</span>
         </a>
 
         <!-- COHOMA -->
-        <a href="projects/cohoma.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🚁</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">COHOMA</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">ministère · 2025-06</p>
-              </div>
+        <a href="projects/cohoma.html" class="group bg-navy-850 border border-navy-600/40 rounded-xl p-6 card-hover hover:border-accent/50 block">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-3xl">🚁</span>
+            <div>
+              <h3 class="text-slate-100 font-semibold group-hover:text-accent transition text-lg">COHOMA — Transmission 3D Drone</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Challenge Ministère des Armées · Juin 2025</p>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">02</span>
           </div>
-          <p class="text-sm text-warm/70 mb-4">Serveur UDP C++ (ASIO), OctoMap 3D, compression zlib, middleware ROS 2, PostgreSQL.</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">C++</span><span class="tech-chip">ROS 2</span><span class="tech-chip">PostgreSQL</span>
+          <p class="text-sm text-slate-400 mb-4">Serveur UDP C++ (ASIO), OctoMap 3D, compression zlib, middleware ROS 2, PostgreSQL.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">C++</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">ROS 2</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">PostgreSQL</span>
           </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+          <span class="font-mono text-xs text-slate-500 group-hover:text-accent transition">En savoir plus →</span>
         </a>
 
         <!-- Eventy -->
-        <a href="projects/eventy.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🎫</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Eventy</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">académique · 2025-11</p>
-              </div>
+        <a href="projects/eventy.html" class="group bg-navy-850 border border-navy-600/40 rounded-xl p-6 card-hover hover:border-accent/50 block">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-3xl">🎫</span>
+            <div>
+              <h3 class="text-slate-100 font-semibold group-hover:text-accent transition text-lg">Eventy — Microservices</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Projet académique · Nov. 2025</p>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">03</span>
           </div>
-          <p class="text-sm text-warm/70 mb-4">Java/Spring Boot : API Gateway, Eureka, user-service. Routage dynamique, load balancing.</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">Java 21</span><span class="tech-chip">Spring Boot 3</span><span class="tech-chip">Eureka</span>
+          <p class="text-sm text-slate-400 mb-4">Java/Spring Boot : API Gateway, Eureka, user-service. Routage dynamique, load balancing.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Java 21</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Spring Boot 3</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Eureka</span>
           </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+          <span class="font-mono text-xs text-slate-500 group-hover:text-accent transition">En savoir plus →</span>
         </a>
 
         <!-- Festival du Jeu -->
-        <a href="projects/festival-du-jeu.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🎮</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Festival du Jeu</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">dev mobile · 2025-03</p>
-              </div>
+        <a href="projects/festival-du-jeu.html" class="group bg-navy-850 border border-navy-600/40 rounded-xl p-6 card-hover hover:border-accent/50 block">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-3xl">🎮</span>
+            <div>
+              <h3 class="text-slate-100 font-semibold group-hover:text-accent transition text-lg">Festival du Jeu — iOS + API</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Projet dev mobile · Mars 2025</p>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">04</span>
           </div>
-          <p class="text-sm text-warm/70 mb-4">App iOS SwiftUI (MVVM), API Node/Express + MySQL, auth JWT. Gestion événementiel.</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">Swift/SwiftUI</span><span class="tech-chip">Node.js</span><span class="tech-chip">MySQL</span>
+          <p class="text-sm text-slate-400 mb-4">App iOS SwiftUI (MVVM), API Node/Express + MySQL, auth JWT. Gestion événementiel.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Swift/SwiftUI</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Node.js</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">MySQL</span>
           </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+          <span class="font-mono text-xs text-slate-500 group-hover:text-accent transition">En savoir plus →</span>
         </a>
 
         <!-- Hydrosciences -->
-        <a href="projects/hydrosciences.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🌧️</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Hydrosciences</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">stage · 2024</p>
-              </div>
+        <a href="projects/hydrosciences.html" class="group bg-navy-850 border border-navy-600/40 rounded-xl p-6 card-hover hover:border-accent/50 block">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-3xl">🌧️</span>
+            <div>
+              <h3 class="text-slate-100 font-semibold group-hover:text-accent transition text-lg">Hydrosciences — Data Ops</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Stage · Montpellier · 2024</p>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">05</span>
           </div>
-          <p class="text-sm text-warm/70 mb-4">Pluviométrie : pipeline Python, apps Shiny (R), interpolation IDW, matrices HDF5/MTX.</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">Python</span><span class="tech-chip">R/Shiny</span><span class="tech-chip">HDF5</span>
+          <p class="text-sm text-slate-400 mb-4">Pluviométrie : pipeline Python, apps Shiny (R), interpolation IDW, matrices HDF5/MTX.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Python</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">R/Shiny</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">HDF5</span>
           </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+          <span class="font-mono text-xs text-slate-500 group-hover:text-accent transition">En savoir plus →</span>
         </a>
 
         <!-- Scala -->
-        <a href="projects/scala-poll.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">⚡</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Realtime Poll</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">académique · 2025-12</p>
-              </div>
+        <a href="projects/scala-poll.html" class="group bg-navy-850 border border-navy-600/40 rounded-xl p-6 card-hover hover:border-accent/50 block">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-3xl">⚡</span>
+            <div>
+              <h3 class="text-slate-100 font-semibold group-hover:text-accent transition text-lg">Realtime Poll — Scala/ZIO</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Projet académique · Déc. 2025</p>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">06</span>
           </div>
-          <p class="text-sm text-warm/70 mb-4">Sondages temps réel WebSocket. ZIO (Ref/Hub), Tapir, Swagger UI.</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">Scala 3</span><span class="tech-chip">ZIO</span><span class="tech-chip">Tapir</span>
+          <p class="text-sm text-slate-400 mb-4">Sondages temps réel WebSocket. ZIO (Ref/Hub), Tapir, Swagger UI.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Scala 3</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">ZIO</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Tapir</span>
           </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+          <span class="font-mono text-xs text-slate-500 group-hover:text-accent transition">En savoir plus →</span>
         </a>
 
         <!-- RACIN -->
-        <a href="projects/racin.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🧠</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">RACIN</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">paris saclay</p>
-              </div>
+        <a href="projects/racin.html" class="group bg-navy-850 border border-navy-600/40 rounded-xl p-6 card-hover hover:border-accent/50 block">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-3xl">🧠</span>
+            <div>
+              <h3 class="text-slate-100 font-semibold group-hover:text-accent transition text-lg">RACIN — IA & Cinéma</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Université Paris Saclay</p>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">07</span>
           </div>
-          <p class="text-sm text-warm/70 mb-4">IA (LLM & détection d'objets) pour étude sociologique sur l'alcool dans le cinéma.</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">Python</span><span class="tech-chip">LLM</span><span class="tech-chip">Computer Vision</span>
+          <p class="text-sm text-slate-400 mb-4">IA (LLM & détection d'objets) pour étude sociologique sur l'alcool dans le cinéma.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Python</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">LLM</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Computer Vision</span>
           </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+          <span class="font-mono text-xs text-slate-500 group-hover:text-accent transition">En savoir plus →</span>
         </a>
 
         <!-- Data Science -->
-        <a href="projects/data-science.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">📈</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">NLP Analysis</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">polytech · 2024-01</p>
-              </div>
+        <a href="projects/data-science.html" class="group bg-navy-850 border border-navy-600/40 rounded-xl p-6 card-hover hover:border-accent/50 block">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-3xl">📈</span>
+            <div>
+              <h3 class="text-slate-100 font-semibold group-hover:text-accent transition text-lg">Analyse NLP — Insertion Pro</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Polytech Montpellier · Jan. 2024</p>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">08</span>
           </div>
-          <p class="text-sm text-warm/70 mb-4">NLP, sentiment analysis, clustering sur retours diplômés Polytech (promos 2014-2022).</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">Python</span><span class="tech-chip">NLTK</span><span class="tech-chip">Scikit-learn</span>
+          <p class="text-sm text-slate-400 mb-4">NLP, sentiment analysis, clustering sur retours diplômés Polytech (promos 2014-2022).</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Python</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">NLTK</span>
+            <span class="text-xs bg-accent/10 border border-accent/20 text-accent px-2 py-0.5 rounded-full">Scikit-learn</span>
           </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+          <span class="font-mono text-xs text-slate-500 group-hover:text-accent transition">En savoir plus →</span>
         </a>
 
       </div>
     </section>
 
-    <!-- EXPERIENCE -->
-    <section id="experience" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40">
-      <div class="section-divider">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">05</span> Experience</h2>
-      </div>
+    <!-- Experience -->
+    <section id="experience" class="py-20 border-t border-navy-600/30">
+      <h2 class="font-mono text-sm text-accent mb-2"><span class="text-accent/40">05.</span> Expériences Professionnelles</h2>
+      <div class="h-px w-20 bg-navy-600 mb-10"></div>
       <div class="max-w-2xl space-y-8">
-        <div class="relative pl-8 border-l-2 border-coal-700/50">
-          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900"></div>
-          <p class="font-mono text-xs text-amber/60 mb-1">// 2026</p>
-          <h3 class="font-display text-warm font-semibold text-lg">Back-End Developer · PHP Laravel</h3>
-          <p class="text-amber text-sm mb-2 font-mono">Infomaniak — Genève, CH</p>
-          <p class="text-sm text-warm/70">Stage de fin d'études. Sécurité applicative : OAuth2, SAML, JWT, 2FA.</p>
+        <div class="relative pl-8 border-l-2 border-navy-600/40">
+          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-accent rounded-full border-2 border-navy-900"></div>
+          <p class="font-mono text-xs text-accent/70 mb-1">2026</p>
+          <h3 class="text-slate-100 font-semibold">Back-End Developer (PHP Laravel)</h3>
+          <p class="text-accent text-sm mb-2">Infomaniak — Genève, Suisse</p>
+          <p class="text-sm text-slate-400">Stage de fin d'études. Développement backend PHP Laravel, sécurité applicative (OAuth2, SAML, JWT, 2FA).</p>
         </div>
-        <div class="relative pl-8 border-l-2 border-coal-700/50">
-          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900"></div>
-          <p class="font-mono text-xs text-amber/60 mb-1">// 2024</p>
-          <h3 class="font-display text-warm font-semibold text-lg">Data Ops</h3>
-          <p class="text-amber text-sm mb-2 font-mono">Hydrosciences Montpellier — FR</p>
-          <p class="text-sm text-warm/70">Pipeline pluviométrie : FTP, calibration, HDF5/MTX, apps Shiny.</p>
+        <div class="relative pl-8 border-l-2 border-navy-600/40">
+          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-accent rounded-full border-2 border-navy-900"></div>
+          <p class="font-mono text-xs text-accent/70 mb-1">2024</p>
+          <h3 class="text-slate-100 font-semibold">Data Ops</h3>
+          <p class="text-accent text-sm mb-2">Hydrosciences Montpellier — Montpellier, France</p>
+          <p class="text-sm text-slate-400">Pipeline de données de pluviométrie : récupération FTP, calibration, matrices creuses HDF5/MTX, applications Shiny.</p>
         </div>
-        <div class="relative pl-8 border-l-2 border-coal-700/50">
-          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900"></div>
-          <p class="font-mono text-xs text-amber/60 mb-1">// 2023</p>
-          <h3 class="font-display text-warm font-semibold text-lg">Back-End Developer · Java Spring Boot</h3>
-          <p class="text-amber text-sm mb-2 font-mono">INRAE — Avignon, FR</p>
-          <p class="text-sm text-warm/70">Développement backend Java Spring Boot.</p>
+        <div class="relative pl-8 border-l-2 border-navy-600/40">
+          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-accent rounded-full border-2 border-navy-900"></div>
+          <p class="font-mono text-xs text-accent/70 mb-1">2023</p>
+          <h3 class="text-slate-100 font-semibold">Back-End Developer (Java Spring Boot)</h3>
+          <p class="text-accent text-sm mb-2">INRAE — Avignon, France</p>
+          <p class="text-sm text-slate-400">Développement backend Java Spring Boot.</p>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="px-6 md:px-12 lg:px-20 py-32 border-t border-coal-700/40 text-center">
-      <div class="section-divider justify-center">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">06</span> Contact</h2>
-      </div>
-      <h3 class="font-display text-3xl md:text-5xl font-bold text-warm mb-4">Let's build something<span class="text-amber">.</span></h3>
-      <p class="text-warm/60 max-w-md mx-auto mb-8 text-sm">En recherche d'emploi — n'hésitez pas à me contacter pour échanger sur une opportunité.</p>
-      <a href="mailto:alexischartier30130pse@gmail.com" class="font-mono text-sm text-amber border border-amber/40 rounded px-6 py-3 hover:bg-amber/10 transition inline-block">
-        ./contact.sh
+    <!-- Contact -->
+    <section id="contact" class="py-24 border-t border-navy-600/30 text-center">
+      <h2 class="font-mono text-sm text-accent mb-2"><span class="text-accent/40">06.</span> Contact</h2>
+      <div class="h-px w-20 bg-navy-600 mb-10 mx-auto"></div>
+      <h3 class="text-3xl md:text-4xl font-bold text-slate-100 mb-4">Connectons-nous</h3>
+      <p class="text-slate-400 max-w-md mx-auto mb-8">Actuellement en recherche d'emploi — n'hésitez pas à me contacter pour échanger sur une opportunité.</p>
+      <a href="mailto:alexischartier30130pse@gmail.com" class="font-mono text-sm text-accent border border-accent/40 rounded px-6 py-3 hover:bg-accent/10 transition inline-block">
+        📧 alexischartier30130pse@gmail.com
       </a>
       <div class="flex justify-center gap-6 mt-8">
-        <a href="https://github.com/AlexisChartier" target="_blank" class="text-warm-dim hover:text-amber transition" aria-label="GitHub">
+        <a href="https://github.com/AlexisChartier" target="_blank" class="text-slate-400 hover:text-accent transition" aria-label="GitHub">
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         </a>
-        <a href="https://www.linkedin.com/in/alexis-chartier-8120671b7/" target="_blank" class="text-warm-dim hover:text-amber transition" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/alexis-chartier-8120671b7/" target="_blank" class="text-slate-400 hover:text-accent transition" aria-label="LinkedIn">
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
       </div>
-      <div class="ascii-divider mt-16">
-═══════════════════════════════════════</div>
-      <footer class="text-[0.7rem] text-warm-dim/60 font-mono">
-        Built with Tailwind · No frameworks · No build step · Just HTML<br>
-        © 2026 Alexis Chartier — Polytech Montpellier
+      <footer class="mt-16 text-xs text-slate-600 font-mono">
+        Conçu &amp; développé par Alexis Chartier · Polytech Montpellier
       </footer>
     </section>
 
   </main>
 
-  <script>
-    // Clock
-    function updateClock() {
-      const now = new Date();
-      const h = String(now.getHours()).padStart(2, '0');
-      const m = String(now.getMinutes()).padStart(2, '0');
-      const s = String(now.getSeconds()).padStart(2, '0');
-      const el = document.getElementById('clock');
-      if (el) el.textContent = `${h}:${m}:${s}`;
+  <style>
+    .tech-chip {
+      display: inline-flex; align-items: center;
+      font-size: 0.8125rem; font-family: 'SF Mono', 'Fira Code', monospace;
+      background: rgba(100, 255, 218, 0.05);
+      border: 1px solid rgba(100, 255, 218, 0.15);
+      color: #64ffda;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+  </style>
 
-    // Mobile menu
+  <script>
+    // Mobile menu toggle
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
@@ -449,7 +426,7 @@
     menuBtn.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
 
-    // Active nav on scroll
+    // Active nav link on scroll
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
     const observer = new IntersectionObserver((entries) => {
@@ -463,7 +440,6 @@
     }, { rootMargin: '-40% 0px -55% 0px' });
     sections.forEach(s => observer.observe(s));
   </script>
-  <script src="assets/kbd-nav.js"></script>
 
 </body>
 </html>
