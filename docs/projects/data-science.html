@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NLP Analysis — Alexis Chartier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { amber: { DEFAULT:'#f59e0b', light:'#fbbf24', dim:'#b45309' }, coal: { 950:'#08080a',900:'#0c0c0f',850:'#111114',800:'#16161a',700:'#1e1e24',600:'#2a2a32',500:'#3a3a44' }, warm: { DEFAULT:'#a8a29e', dim:'#78716c' } },
+      fontFamily: { display: ['"Space Grotesk"','system-ui','sans-serif'], mono: ['"JetBrains Mono"','"SF Mono"','Consolas','monospace'] }
+    } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="bg-coal-900 text-warm antialiased" data-page="data-science">
+
+  <div class="status-bar fixed top-0 left-0 right-0 z-50">
+    <span class="status-dot bg-green-400"></span>
+    <span>PROJECT · 08/08</span>
+    <span class="text-coal-600">·</span>
+    <span>data-science</span>
+    <span class="ml-auto"><a href="../index.html" class="hover:text-amber transition">← cd ..</a></span>
+  </div>
+
+  <main class="blueprint-grid max-w-5xl mx-auto px-6 md:px-12 pt-20 pb-20">
+
+    <div class="fade-up">
+      <p class="font-mono text-xs text-amber/60 mb-3">// polytech montpellier · janvier 2024</p>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">NLP Analysis<span class="text-amber">.</span></h1>
+      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Analyse des retours textuels des diplômés de Polytech Montpellier : NLP, sentiment analysis et clustering thématique.</p>
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="tech-chip">Python</span><span class="tech-chip">NLTK</span><span class="tech-chip">Scikit-learn</span>
+        <span class="tech-chip">Gensim</span><span class="tech-chip">TextBlob</span><span class="tech-chip">WordCloud</span><span class="tech-chip">Matplotlib</span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-12 fade-up-d1">
+      <a href="https://github.com/AlexisChartier/Projet-Data-Science" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">GitHub ↗</a>
+    </div>
+
+    <div class="space-y-14 max-w-3xl">
+
+      <section class="fade-up-d2">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Contexte</h2>
+        <p class="text-warm/70 leading-relaxed">
+          Le projet porte sur l'insertion professionnelle des ingénieurs de Polytech Montpellier. Les données
+          couvrent les enquêtes réalisées à 6, 18 et 30 mois après l'obtention du diplôme, de la promo 2022 (à 6 mois)
+          jusqu'à la promo 2014 (à 30 mois). L'objectif : analyser les retours textuels des diplômés sur leur formation,
+          jusqu'alors peu étudiés.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Problématiques</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// 01 · Satisfaction</p>
+            <p class="text-sm text-warm/70">Évaluer la satisfaction des diplômés à partir des retours textuels (6, 18, 30 mois).</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// 02 · Tendances</p>
+            <p class="text-sm text-warm/70">Identifier les évolutions dans les retours sur la formation entre les promotions.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// 03 · Thématisation</p>
+            <p class="text-sm text-warm/70">Catégoriser les retours en thèmes pour comprendre les points forts/faibles de la formation.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// 04 · Corrélations</p>
+            <p class="text-sm text-warm/70">Corréler la satisfaction textuelle avec le taux d'insertion et la spécialisation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Pipeline</h2>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
+  Données Excel (enquêtes 2014-2022)
+       │
+       ▼
+  ┌──────────────────┐
+  │  Import + format  │  ← Pandas
+  │  (colonnes pertinentes)
+  └────────┬─────────┘
+           │
+  ┌────────▼─────────┐
+  │  NLP Processing   │  ← NLTK, TextBlob
+  │  (tokenisation,   │
+  │   sentiment)      │
+  └────────┬─────────┘
+           │
+  ┌────────▼─────────┐
+  │  Vectorisation    │  ← TF-IDF
+  │  + Clustering     │    Scikit-learn
+  └────────┬─────────┘
+           │
+  ┌────────▼─────────┐
+  │  Topic Modeling   │  ← Gensim (LDA)
+  └────────┬─────────┘
+           │
+  ┌────────▼─────────┐
+  │  Visualisation    │  ← Matplotlib, Seaborn
+  │  (wordclouds,     │    WordCloud
+  │   graphiques)     │
+  └──────────────────┘</div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Structure</h2>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed">
+          <div class="flex gap-4"><span class="text-amber">data/</span><span>Données au format Excel</span></div>
+          <div class="flex gap-4"><span class="text-amber">script/</span><span>Scripts Python (un fichier par problématique)</span></div>
+          <div class="flex gap-4"><span class="text-amber">results/</span><span>Graphiques et word clouds générés</span></div>
+          <div class="flex gap-4"><span class="text-amber">examples/</span><span>Scripts d'exemple pour l'analyse</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Points techniques</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// TF-IDF + Clustering</p>
+            <p class="text-sm text-warm/70">Vectorisation du texte et clustering pour regrouper les retours similaires et identifier des tendances.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Sentiment Analysis</p>
+            <p class="text-sm text-warm/70">TextBlob pour évaluer la polarité positive/négative des retours textuels.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Topic Modeling</p>
+            <p class="text-sm text-warm/70">Gensim (LDA) pour extraire les thèmes récurrents des retours sur la formation.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Analyse longitudinale</p>
+            <p class="text-sm text-warm/70">Comparaison des promotions (2014-2022) pour observer l'évolution des opinions.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-coal-700/40">
+      <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ../projects</a>
+    </div>
+
+  </main>
+
+  <script src="../assets/kbd-nav.js"></script>
+</body>
+</html>

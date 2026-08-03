@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realtime Poll — Alexis Chartier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { amber: { DEFAULT:'#f59e0b', light:'#fbbf24', dim:'#b45309' }, coal: { 950:'#08080a',900:'#0c0c0f',850:'#111114',800:'#16161a',700:'#1e1e24',600:'#2a2a32',500:'#3a3a44' }, warm: { DEFAULT:'#a8a29e', dim:'#78716c' } },
+      fontFamily: { display: ['"Space Grotesk"','system-ui','sans-serif'], mono: ['"JetBrains Mono"','"SF Mono"','Consolas','monospace'] }
+    } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="bg-coal-900 text-warm antialiased" data-page="scala-poll">
+
+  <div class="status-bar fixed top-0 left-0 right-0 z-50">
+    <span class="status-dot bg-green-400"></span>
+    <span>PROJECT · 06/08</span>
+    <span class="text-coal-600">·</span>
+    <span>scala-poll</span>
+    <span class="ml-auto"><a href="../index.html" class="hover:text-amber transition">← cd ..</a></span>
+  </div>
+
+  <main class="blueprint-grid max-w-5xl mx-auto px-6 md:px-12 pt-20 pb-20">
+
+    <div class="fade-up">
+      <p class="font-mono text-xs text-amber/60 mb-3">// projet académique · décembre 2025</p>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">Realtime Poll<span class="text-amber">.</span></h1>
+      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Serveur de sondages en temps réel avec WebSockets, construit en Scala avec ZIO et Tapir.</p>
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="tech-chip">Scala 3</span><span class="tech-chip">ZIO</span><span class="tech-chip">ZIO Http</span>
+        <span class="tech-chip">Tapir</span><span class="tech-chip">WebSocket</span><span class="tech-chip">Swagger UI</span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-12 fade-up-d1">
+      <a href="https://github.com/AlexisChartier/scala-realtime-poll" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">GitHub ↗</a>
+    </div>
+
+    <div class="space-y-14 max-w-3xl">
+
+      <section class="fade-up-d2">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Overview</h2>
+        <p class="text-warm/70 leading-relaxed">
+          Serveur HTTP fonctionnel pour créer des sondages, voter et voir les résultats se mettre à jour en temps réel.
+          L'état des sondages est géré en mémoire via un <strong class="text-warm">Ref ZIO</strong> (immutable, thread-safe)
+          et les mises à jour sont diffusées à tous les clients connectés via un <strong class="text-warm">Hub ZIO</strong>.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Architecture</h2>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
+        ┌──────────────┐
+        │  Client Web   │  ← HTML/JS vanilla
+        │  (static)     │
+        └──────┬───────┘
+               │
+      ┌────────┼────────┐
+      │   REST API       │  ← Tapir endpoints
+      │ POST /poll       │     (création)
+      │ GET  /poll/{id}  │     (consultation)
+      │ POST /poll/{id}/vote
+      └────────┬────────┘
+               │
+      ┌────────▼────────┐
+      │   Ref[Map[...]]  │  ← État en mémoire
+      │   (ZIO Ref)      │     (volatile)
+      └────────┬────────┘
+               │
+      ┌────────▼────────┐
+      │   Hub ZIO       │  ← Broadcast
+      │   WebSocket     │     WS /poll/{id}/results
+      └─────────────────┘</div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Fonctionnalités</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <h3 class="text-warm text-sm font-semibold mb-3 font-display">// API REST</h3>
+            <ul class="space-y-2 text-sm text-warm/70 font-mono text-xs">
+              <li>▸ POST /poll — créer un sondage</li>
+              <li>▸ GET /poll/{id} — consulter</li>
+              <li>▸ POST /poll/{id}/vote — voter</li>
+            </ul>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <h3 class="text-warm text-sm font-semibold mb-3 font-display">// Temps réel</h3>
+            <ul class="space-y-2 text-sm text-warm/70 font-mono text-xs">
+              <li>▸ WS /poll/{id}/results</li>
+              <li>▸ Broadcast via Hub ZIO</li>
+              <li>▸ Mise à jour sans refresh</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Points techniques</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// ZIO Ref & Hub</p>
+            <p class="text-sm text-warm/70">État partagé thread-safe (Ref) et diffusion concurrente (Hub) — patterns fonctionnels purs pour la concurrence.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Tapir</p>
+            <p class="text-sm text-warm/70">Définition des endpoints REST + WebSocket de manière type-safe, avec génération auto de Swagger UI.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Front-end vanilla</p>
+            <p class="text-sm text-warm/70">Client HTML/JS servi directement par le serveur — pas de framework front, pas de build step.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Swagger UI</p>
+            <p class="text-sm text-warm/70">Documentation API auto-générée disponible sur /docs.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-coal-700/40">
+      <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ../projects</a>
+    </div>
+
+  </main>
+
+  <script src="../assets/kbd-nav.js"></script>
+</body>
+</html>

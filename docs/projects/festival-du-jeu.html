@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Festival du Jeu — Alexis Chartier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { amber: { DEFAULT:'#f59e0b', light:'#fbbf24', dim:'#b45309' }, coal: { 950:'#08080a',900:'#0c0c0f',850:'#111114',800:'#16161a',700:'#1e1e24',600:'#2a2a32',500:'#3a3a44' }, warm: { DEFAULT:'#a8a29e', dim:'#78716c' } },
+      fontFamily: { display: ['"Space Grotesk"','system-ui','sans-serif'], mono: ['"JetBrains Mono"','"SF Mono"','Consolas','monospace'] }
+    } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="bg-coal-900 text-warm antialiased" data-page="festival-du-jeu">
+
+  <div class="status-bar fixed top-0 left-0 right-0 z-50">
+    <span class="status-dot bg-green-400"></span>
+    <span>PROJECT · 04/08</span>
+    <span class="text-coal-600">·</span>
+    <span>festival-du-jeu</span>
+    <span class="ml-auto"><a href="../index.html" class="hover:text-amber transition">← cd ..</a></span>
+  </div>
+
+  <main class="blueprint-grid max-w-5xl mx-auto px-6 md:px-12 pt-20 pb-20">
+
+    <div class="fade-up">
+      <p class="font-mono text-xs text-amber/60 mb-3">// projet dev mobile · mars 2025</p>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">Festival du Jeu<span class="text-amber">.</span></h1>
+      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Application iOS fullstack pour la gestion du Festival du Jeu de Montpellier : dépôts, ventes, vendeurs et bilans.</p>
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="tech-chip">Swift 6</span><span class="tech-chip">SwiftUI</span><span class="tech-chip">MVVM</span>
+        <span class="tech-chip">Node.js · Express</span><span class="tech-chip">MySQL · Sequelize</span><span class="tech-chip">JWT</span><span class="tech-chip">React</span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-12 fade-up-d1">
+      <a href="https://github.com/AlexisChartier/awi-app" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">iOS App ↗</a>
+      <a href="https://github.com/AlexisChartier/FestivalDuJeuAPI" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">API Backend ↗</a>
+      <a href="https://github.com/AlexisChartier/Front-AWI" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">React Front ↗</a>
+      <a href="https://github.com/AlexisChartier/Back-AWI" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">Back-AWI ↗</a>
+    </div>
+
+    <div class="space-y-14 max-w-3xl">
+
+      <section class="fade-up-d2">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Overview</h2>
+        <p class="text-warm/70 leading-relaxed">
+          Projet fullstack pour le Festival du Jeu de Montpellier. L'application iOS (Swift/SwiftUI) permet aux
+          organisateurs de gérer l'événement en temps réel : suivi des dépôts de jeux, gestion des ventes,
+          administration des vendeurs et acheteurs, et consultation des bilans financiers.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> iOS App · Swift / SwiftUI</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Rôle Manager</p>
+            <ul class="space-y-2 text-sm text-warm/70">
+              <li class="flex gap-2"><span class="text-amber">▸</span> Gestion des dépôts et ventes (session active)</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Consultation des données vendeurs</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Gestion des vendeurs et acheteurs</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Consultation des bilans financiers</li>
+            </ul>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Rôle Admin</p>
+            <ul class="space-y-2 text-sm text-warm/70">
+              <li class="flex gap-2"><span class="text-amber">▸</span> Gestion des utilisateurs</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Gestion des sessions</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Consultation des statistiques par session</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-4 bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+          <p class="text-amber font-mono text-xs mb-3">// Stack technique</p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm text-warm/70 font-mono text-xs">
+            <div><span class="text-warm-dim">Swift</span> 6.0.3</div>
+            <div><span class="text-warm-dim">iOS</span> 18.2</div>
+            <div><span class="text-warm-dim">Pattern</span> MVVM</div>
+            <div><span class="text-warm-dim">Reactive</span> Combine</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> API · Node.js / Express</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          API REST complète avec ORM Sequelize (MySQL) et authentification JWT. Gère les users, roles, zones,
+          jeux, postes, festivals, plages horaires, créneaux et inscriptions.
+        </p>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+          <p class="text-amber font-mono text-xs mb-3">// Routes API</p>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-warm/70 font-mono text-xs">
+            <div>▸ Users</div><div>▸ Roles</div><div>▸ Zones</div>
+            <div>▸ Jeux</div><div>▸ Postes</div><div>▸ Festivals</div>
+            <div>▸ Plages horaires</div><div>▸ Créneaux poste</div><div>▸ Créneaux zone</div>
+            <div>▸ Inscriptions poste</div><div>▸ Inscriptions zone</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Sécurité</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Auth</p>
+            <p class="text-sm text-warm/70">Tokens JWT avec bcrypt pour le hachage des mots de passe.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Validation</p>
+            <p class="text-sm text-warm/70">Middleware express-validator sur toutes les routes de l'API.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Déploiement</p>
+            <p class="text-sm text-warm/70">Backend déployé en HTTPS, app iOS connectée à l'API distante.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-coal-700/40">
+      <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ../projects</a>
+    </div>
+
+  </main>
+
+  <script src="../assets/kbd-nav.js"></script>
+</body>
+</html>

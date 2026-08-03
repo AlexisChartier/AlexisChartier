@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopyVerse — Alexis Chartier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { amber: { DEFAULT:'#f59e0b', light:'#fbbf24', dim:'#b45309' }, coal: { 950:'#08080a',900:'#0c0c0f',850:'#111114',800:'#16161a',700:'#1e1e24',600:'#2a2a32',500:'#3a3a44' }, warm: { DEFAULT:'#a8a29e', dim:'#78716c' } },
+      fontFamily: { display: ['"Space Grotesk"','system-ui','sans-serif'], mono: ['"JetBrains Mono"','"SF Mono"','Consolas','monospace'] }
+    } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="bg-coal-900 text-warm antialiased" data-page="shopyverse">
+
+  <div class="status-bar fixed top-0 left-0 right-0 z-50">
+    <span class="status-dot bg-green-400"></span>
+    <span>PROJECT · 01/08</span>
+    <span class="text-coal-600">·</span>
+    <span>shopyverse</span>
+    <span class="ml-auto"><a href="../index.html" class="hover:text-amber transition">← cd ..</a></span>
+  </div>
+
+  <main class="blueprint-grid max-w-5xl mx-auto px-6 md:px-12 pt-20 pb-20">
+
+    <div class="fade-up">
+      <p class="font-mono text-xs text-amber/60 mb-3">// projet académique · décembre 2025</p>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">ShopyVerse<span class="text-amber">.</span></h1>
+      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Plateforme e-commerce IA avec architecture microservices : recommandation par LLM, chatbot RAG et API core.</p>
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="tech-chip">Python · FastAPI</span><span class="tech-chip">TypeScript · NestJS</span>
+        <span class="tech-chip">LangChain</span><span class="tech-chip">Llama-3.1-8B</span>
+        <span class="tech-chip">Qdrant</span><span class="tech-chip">Docker</span><span class="tech-chip">PostgreSQL</span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-12 fade-up-d1">
+      <a href="https://github.com/AlexisChartier/shopyverse-reco-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">reco-service ↗</a>
+      <a href="https://github.com/AlexisChartier/shopyverse-chatbot-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">chatbot-service ↗</a>
+      <a href="https://github.com/AlexisChartier/shopyverse-api-core" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">api-core ↗</a>
+      <a href="https://github.com/AlexisChartier/shopyverse-infra" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">infra ↗</a>
+    </div>
+
+    <div class="space-y-14 max-w-3xl">
+
+      <section class="fade-up-d2">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Overview</h2>
+        <p class="text-warm/70 leading-relaxed">
+          ShopyVerse est une plateforme e-commerce construite avec une architecture microservices, intégrant l'IA au cœur de l'expérience utilisateur.
+          Le projet se compose de 4 services indépendants : un service de recommandation propulsé par LLM, un chatbot RAG conversationnel,
+          une API core NestJS et une infrastructure Docker.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Reco Service · LLM</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          Micro-service Python (FastAPI) qui utilise un LLM (<strong class="text-warm">Llama-3.1-8B-Instruct</strong>) via
+          <strong class="text-warm">LangChain</strong> et <strong class="text-warm">Hugging Face</strong> pour recommander des produits pertinents.
+        </p>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 space-y-3">
+          <p class="text-sm text-amber font-mono text-xs mb-2">// pipeline</p>
+          <ol class="space-y-2 text-sm text-warm/70 list-decimal list-inside font-mono text-xs">
+            <li>Récupération du produit cible en base PostgreSQL</li>
+            <li>Pré-filtrage des candidats (même catégorie, prix ±20%)</li>
+            <li>Construction d'un prompt listant le produit et les candidats</li>
+            <li>Envoi au LLM via LangChain / HuggingFaceEndpoint</li>
+            <li>Parsing JSON et filtrage des hallucinations (IDs inexistants en DB)</li>
+          </ol>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Chatbot · RAG</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          Microservice TypeScript (<strong class="text-warm">Fastify</strong>) implémentant le Retrieval-Augmented Generation
+          avec <strong class="text-warm">Qdrant</strong> comme vector store.
+        </p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <h3 class="text-warm text-sm font-semibold mb-3 font-display">// En place</h3>
+            <ul class="space-y-2 text-sm text-warm/70">
+              <li class="flex gap-2"><span class="text-amber">▸</span> Chatbot RAG : recherche vectorielle + réponse contextuelle</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Ingestion FAQ (route /api/v1/ingest)</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Authentification par x-api-key</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Logs Pino + métriques Prometheus</li>
+            </ul>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <h3 class="text-warm text-sm font-semibold mb-3 font-display">// En développement</h3>
+            <ul class="space-y-2 text-sm text-warm/70">
+              <li class="flex gap-2"><span class="text-amber">▸</span> NLU : classification FAQ / produit / autre</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Index sémantique du catalogue produits</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Widget chat front-end (iframe / Web Component)</li>
+              <li class="flex gap-2"><span class="text-amber">▸</span> Tableau de bord IA (analytics)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Architecture</h2>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
+┌──────────────────┐     ┌──────────────────┐
+│  reco-service     │     │  chatbot-service  │
+│  (FastAPI/Python) │     │  (Fastify/TS)     │
+│  + Llama-3.1 LLM  │     │  + Qdrant RAG     │
+└────────┬─────────┘     └────────┬──────────┘
+         │                        │
+         └──────────┬─────────────┘
+                    │
+          ┌─────────▼──────────┐
+          │   api-core (NestJS) │
+          │   + PostgreSQL      │
+          └────────────────────┘
+                    │
+          ┌─────────▼──────────┐
+          │  infra (Docker)     │
+          └────────────────────┘</div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Points techniques</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Anti-hallucination</p>
+            <p class="text-sm text-warm/70">Le reco-service filtre les IDs produits retournés par le LLM qui n'existent pas en base, évitant les recommandations fantaisistes.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Vector Search</p>
+            <p class="text-sm text-warm/70">Qdrant pour la recherche sémantique dans la base FAQ, avec embeddings HuggingFace.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Pré-filtrage</p>
+            <p class="text-sm text-warm/70">Réduction du bruit avant l'appel LLM : même catégorie + gamme de prix ±20%.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Observabilité</p>
+            <p class="text-sm text-warm/70">Logs structurés Pino + endpoint /metrics Prometheus pour le monitoring du chatbot.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-coal-700/40">
+      <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ../projects</a>
+    </div>
+
+  </main>
+
+  <script src="../assets/kbd-nav.js"></script>
+</body>
+</html>

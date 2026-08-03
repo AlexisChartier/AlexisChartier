@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COHOMA — Alexis Chartier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { amber: { DEFAULT:'#f59e0b', light:'#fbbf24', dim:'#b45309' }, coal: { 950:'#08080a',900:'#0c0c0f',850:'#111114',800:'#16161a',700:'#1e1e24',600:'#2a2a32',500:'#3a3a44' }, warm: { DEFAULT:'#a8a29e', dim:'#78716c' } },
+      fontFamily: { display: ['"Space Grotesk"','system-ui','sans-serif'], mono: ['"JetBrains Mono"','"SF Mono"','Consolas','monospace'] }
+    } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="bg-coal-900 text-warm antialiased" data-page="cohoma">
+
+  <div class="status-bar fixed top-0 left-0 right-0 z-50">
+    <span class="status-dot bg-green-400"></span>
+    <span>PROJECT · 02/08</span>
+    <span class="text-coal-600">·</span>
+    <span>cohoma</span>
+    <span class="ml-auto"><a href="../index.html" class="hover:text-amber transition">← cd ..</a></span>
+  </div>
+
+  <main class="blueprint-grid max-w-5xl mx-auto px-6 md:px-12 pt-20 pb-20">
+
+    <div class="fade-up">
+      <p class="font-mono text-xs text-amber/60 mb-3">// challenge ministère des armées · juin 2025</p>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">COHOMA<span class="text-amber">.</span></h1>
+      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Transmission de cartes 3D voxelisées depuis un drone vers un serveur central, en environnement contraint.</p>
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="tech-chip">C++ · ASIO</span><span class="tech-chip">ROS 2</span><span class="tech-chip">OctoMap</span>
+        <span class="tech-chip">PostgreSQL</span><span class="tech-chip">zlib</span><span class="tech-chip">Docker</span><span class="tech-chip">UDP</span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-12 fade-up-d1">
+      <a href="https://github.com/AlexisChartier/server_udp" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">server_udp ↗</a>
+      <a href="https://github.com/AlexisChartier/pointcloudCOMPLET" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">pointcloudCOMPLET ↗</a>
+      <a href="https://github.com/AlexisChartier/drone_middleware" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">drone_middleware ↗</a>
+      <a href="https://github.com/AlexisChartier/pointCloudV2" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">pointCloudV2 ↗</a>
+    </div>
+
+    <div class="space-y-14 max-w-3xl">
+
+      <section class="fade-up-d2">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Contexte</h2>
+        <p class="text-warm/70 leading-relaxed">
+          Le Challenge COHOMA (Collaborative Human/Robot Machine Awareness) est organisé par le Ministère des Armées.
+          L'objectif : transmettre des cartes 3D de l'environnement depuis un drone vers un serveur central en temps réel,
+          via des réseaux contraints (Wi-Fi dégradé, UDP). Le projet couvre toute la chaîne : génération OctoMap,
+          compression, transmission, réassemblage et stockage.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Server UDP · C++ / ASIO</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          Serveur C++ utilisant <strong class="text-warm">Boost.ASIO</strong> pour recevoir des cartes OctoMap fragmentées via UDP.
+          Pipeline : réception → réassemblage → décompression <strong class="text-warm">zlib</strong> → extraction des voxels → insertion PostgreSQL.
+        </p>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
+Drone (ROS 2)
+  │
+  ├─ OctoMap Server (pointcloud → octomap binaire)
+  │
+  ├─ Middleware C++ (compression zlib, envoi UDP)
+  │    └─ Net Guard: contrôle RSSI Wi-Fi
+  │       (suspend l'envoi si signal < seuil)
+  │
+  ▼  UDP (fragments)
+┌─────────────────────────┐
+│  server_udp (C++ / ASIO) │
+│  ┌─ Réassemblage blobs    │
+│  ├─ Décompression zlib    │
+│  ├─ Parsing voxels        │
+│  └─ INSERT PostgreSQL     │
+│     (ON CONFLICT UPDATE)  │
+└─────────────────────────┘</div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Middleware · ROS 2 + C++</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          Le middleware embarqué écoute le topic ROS 2 <code class="text-amber font-mono">/octomap_binary</code>,
+          compresse l'OctoMap avec zlib et l'envoie en UDP. Un système de <strong class="text-warm">Net Guard</strong>
+          surveille le RSSI Wi-Fi et suspend l'envoi si le signal est trop faible.
+        </p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Topics ROS 2</p>
+            <ul class="space-y-1 text-sm text-warm/70 font-mono text-xs">
+              <li>/depth/points → PointCloud2</li>
+              <li>/octomap_binary → Octomap</li>
+            </ul>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Variables d'env</p>
+            <ul class="space-y-1 text-sm text-warm/70 font-mono text-xs">
+              <li>DRONE_ID (ex: DT1)</li>
+              <li>TRANSPORT_URL (udp://...)</li>
+              <li>RSSI_MIN (ex: -75 dBm)</li>
+              <li>WIFI_IFACE (ex: wlan0)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Schéma DB</h2>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
+CREATE TABLE spatial_points (
+  x INT, y INT, z INT,
+  color_r SMALLINT, color_g SMALLINT,
+  color_b SMALLINT, color_a SMALLINT,
+  timestamp BIGINT,
+  nb_records INT,
+  PRIMARY KEY (x, y, z)
+);
+
+CREATE INDEX sp_xyz_gist
+  ON spatial_points USING gist (point(x, y, z));</div>
+        <p class="text-sm text-warm-dim mt-3 font-mono text-xs">// INSERT ... ON CONFLICT ... UPDATE pour les mises à jour de voxels existants</p>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Points techniques</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Réseau contraint</p>
+            <p class="text-sm text-warm/70">UDP pour le temps réel, fragmentation des OctoMap, Net Guard avec contrôle RSSI.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Multithreading</p>
+            <p class="text-sm text-warm/70">Serveur ASIO multithreadé : paquets en parallèle du réassemblage et de l'insertion DB.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Compression</p>
+            <p class="text-sm text-warm/70">zlib niveau 1 pour réduire la taille des OctoMap avant transmission UDP.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Index spatial</p>
+            <p class="text-sm text-warm/70">Index GiST sur point(x,y,z) pour des requêtes spatiales rapides sur les voxels 3D.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-coal-700/40">
+      <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ../projects</a>
+    </div>
+
+  </main>
+
+  <script src="../assets/kbd-nav.js"></script>
+</body>
+</html>

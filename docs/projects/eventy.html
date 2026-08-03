@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventy — Alexis Chartier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { amber: { DEFAULT:'#f59e0b', light:'#fbbf24', dim:'#b45309' }, coal: { 950:'#08080a',900:'#0c0c0f',850:'#111114',800:'#16161a',700:'#1e1e24',600:'#2a2a32',500:'#3a3a44' }, warm: { DEFAULT:'#a8a29e', dim:'#78716c' } },
+      fontFamily: { display: ['"Space Grotesk"','system-ui','sans-serif'], mono: ['"JetBrains Mono"','"SF Mono"','Consolas','monospace'] }
+    } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="bg-coal-900 text-warm antialiased" data-page="eventy">
+
+  <div class="status-bar fixed top-0 left-0 right-0 z-50">
+    <span class="status-dot bg-green-400"></span>
+    <span>PROJECT · 03/08</span>
+    <span class="text-coal-600">·</span>
+    <span>eventy</span>
+    <span class="ml-auto"><a href="../index.html" class="hover:text-amber transition">← cd ..</a></span>
+  </div>
+
+  <main class="blueprint-grid max-w-5xl mx-auto px-6 md:px-12 pt-20 pb-20">
+
+    <div class="fade-up">
+      <p class="font-mono text-xs text-amber/60 mb-3">// projet académique · novembre 2025</p>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">Eventy<span class="text-amber">.</span></h1>
+      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Architecture microservices Java/Spring Boot : API Gateway, service discovery Eureka et user-service.</p>
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="tech-chip">Java 21</span><span class="tech-chip">Spring Boot 3</span><span class="tech-chip">Spring Cloud Gateway</span>
+        <span class="tech-chip">Eureka</span><span class="tech-chip">OpenFeign</span><span class="tech-chip">Docker</span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-12 fade-up-d1">
+      <a href="https://github.com/AlexisChartier/api-gateway" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">api-gateway ↗</a>
+      <a href="https://github.com/AlexisChartier/eventy-eureka-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">eureka-service ↗</a>
+      <a href="https://github.com/AlexisChartier/eventy-user-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">user-service ↗</a>
+      <a href="https://github.com/AlexisChartier/Eventy-back" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">Eventy-back ↗</a>
+    </div>
+
+    <div class="space-y-14 max-w-3xl">
+
+      <section class="fade-up-d2">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Architecture</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          Eventy est une architecture microservices complète pour la gestion d'événements (festivals, concerts, etc.).
+          Le client (application mobile) ne communique qu'avec l'API Gateway, qui route dynamiquement les requêtes
+          vers les microservices internes via Eureka.
+        </p>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
+        ┌─────────────┐
+        │  Client iOS │
+        └──────┬──────┘
+               │ HTTP
+        ┌──────▼──────────────┐
+        │   API Gateway        │  ← Spring Cloud Gateway
+        │   (port 8080)        │     Routage par path
+        └──────┬───────────────┘
+               │ lb://service-name
+        ┌──────▼──────────────┐
+        │   Eureka Server      │  ← Service Discovery
+        │   (port 8761)        │     Dashboard : /8761
+        └──────┬───────────────┘
+               │
+      ┌────────┼────────────┐
+      │        │            │
+┌─────▼──┐ ┌──▼─────┐ ┌───▼─────┐
+│ user-  │ │ event- │ │ ticket- │
+│ service│ │ service│ │ service │
+└────────┘ └────────┘ └─────────┘</div>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> API Gateway</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          Point d'entrée unique (port 8080). Le routage est défini programmatiquement : chaque route intercepte un
+          pattern de chemin et le redirige vers un service découvert par Eureka.
+        </p>
+        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
+.route("user-service-route", r -> r
+    .path("/api/users/**")
+    .filters(f -> f.stripPrefix(2))
+    .uri("lb://user-service")  // Load balancing via Eureka
+)</div>
+        <p class="text-sm text-warm-dim mt-3 font-mono text-xs">// lb:// = load balancing client-side via Eureka</p>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Service Discovery · Eureka</h2>
+        <p class="text-warm/70 leading-relaxed">
+          Eureka sert d'annuaire dynamique : les microservices s'enregistrent au démarrage et envoient des heartbeats.
+          Eureka retire les instances qui ne répondent plus. Le dashboard web (port 8761) permet de visualiser
+          l'état du système en temps réel.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Points techniques</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Routage dynamique</p>
+            <p class="text-sm text-warm/70">Aucune adresse IP en dur : la gateway découvre les services par leur nom logique via Eureka.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Load balancing</p>
+            <p class="text-sm text-warm/70">Répartition de charge client-side avec lb:// — plusieurs instances gérées automatiquement.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Health checks</p>
+            <p class="text-sm text-warm/70">Eureka reçoit les heartbeats des services et retire les instances défaillantes.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Cross-cutting</p>
+            <p class="text-sm text-warm/70">Centralisation future de l'authentification, rate limiting et logging au niveau de la gateway.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-coal-700/40">
+      <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ../projects</a>
+    </div>
+
+  </main>
+
+  <script src="../assets/kbd-nav.js"></script>
+</body>
+</html>
