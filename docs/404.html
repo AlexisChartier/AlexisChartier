@@ -41,13 +41,24 @@
       <p class="font-mono text-sm text-warm-dim/60 mb-10">No such file or directory</p>
 
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="index.html" class="font-mono text-sm text-amber border border-amber/40 rounded px-6 py-3 hover:bg-amber/10 transition">
+        <a href="#" id="home-link" class="font-mono text-sm text-amber border border-amber/40 rounded px-6 py-3 hover:bg-amber/10 transition">
           ← cd ~/
         </a>
-        <a href="index.html#projects" class="font-mono text-sm text-warm-dim border border-coal-600 rounded px-6 py-3 hover:text-amber hover:border-amber/40 transition">
+        <a href="#" id="projects-link" class="font-mono text-sm text-warm-dim border border-coal-600 rounded px-6 py-3 hover:text-amber hover:border-amber/40 transition">
           ./projects
         </a>
       </div>
+
+      <script>
+        (function () {
+          var depth = window.location.pathname.split('/').filter(Boolean).length;
+          var prefix = '';
+          for (var i = 1; i < depth; i++) prefix += '../';
+          document.getElementById('home-link').href = prefix + 'index.html';
+          document.getElementById('projects-link').href = prefix + 'index.html#projects';
+          document.querySelector('link[rel="stylesheet"]').href = prefix + 'assets/style.css';
+        })();
+      </script>
 
       <div class="ascii-divider mt-16">
 ═══════════════════════════════════════</div>
