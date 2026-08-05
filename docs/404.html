@@ -51,7 +51,9 @@
 
       <script>
         (function () {
-          var depth = window.location.pathname.split('/').filter(Boolean).length;
+          var segments = window.location.pathname.split('/').filter(Boolean);
+          if (segments[0] === 'AlexisChartier') segments.shift();
+          var depth = segments.length;
           var prefix = '';
           for (var i = 1; i < depth; i++) prefix += '../';
           document.getElementById('home-link').href = prefix + 'index.html';
