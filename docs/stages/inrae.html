@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Realtime Poll — Alexis Chartier</title>
-  <meta name="description" content="Sondages temps réel WebSocket — Scala 3, ZIO (Ref/Hub), Tapir, Swagger UI.">
-  <meta property="og:title" content="Realtime Poll — Alexis Chartier">
-  <meta property="og:description" content="Sondages temps réel WebSocket — Scala 3, ZIO (Ref/Hub), Tapir, Swagger UI.">
+  <title>Stage INRAE — Alexis Chartier</title>
+  <meta name="description" content="Développement backend Java/Spring Boot (MVC/DAO/DTO) pour statistiques de référentiels à l'INRAE.">
+  <meta property="og:title" content="Stage INRAE — Alexis Chartier">
+  <meta property="og:description" content="Développement backend Java/Spring Boot (MVC/DAO/DTO) pour statistiques de référentiels à l'INRAE.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -40,119 +40,111 @@
   </script>
   <script src="../assets/mermaid-fix.js"></script>
 </head>
-<body class="bg-coal-900 text-warm antialiased" data-page="scala-poll">
+<body class="bg-coal-900 text-warm antialiased" data-page="inrae">
 
   <div class="scroll-progress" id="scroll-progress"></div>
   <div class="status-bar fixed top-0 left-0 right-0 z-50">
     <span class="status-dot bg-green-400"></span>
-    <span>PROJECT · 05/08</span>
+    <span>STAGE · 03/03</span>
     <span class="text-coal-600">·</span>
-    <span>scala-poll</span>
+    <span>inrae</span>
     <span class="ml-auto"><a href="../index.html" class="hover:text-amber transition">← cd ..</a></span>
   </div>
 
   <main class="blueprint-grid max-w-5xl mx-auto px-6 md:px-12 pt-20 pb-20">
 
     <div class="fade-up">
-      <p class="font-mono text-xs text-amber/60 mb-3">// projet académique · décembre 2025</p>
-      <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">Realtime Poll<span class="text-amber">.</span></h1>
-      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Serveur de sondages en temps réel avec WebSockets, construit en Scala avec ZIO et Tapir.</p>
+      <p class="font-mono text-xs text-amber/60 mb-3">// stage de dut · avril—juin 2022 · 3 mois</p>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">INRAE<span class="text-amber">.</span></h1>
+      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Développement backend Java/Spring Boot — affichage des statistiques de données de référentiels.</p>
       <div class="flex flex-wrap gap-2 mb-8">
-        <span class="tech-chip">Scala 3</span><span class="tech-chip">ZIO</span><span class="tech-chip">ZIO Http</span>
-        <span class="tech-chip">Tapir</span><span class="tech-chip">WebSocket</span><span class="tech-chip">Swagger UI</span>
+        <span class="tech-chip">Java</span><span class="tech-chip">Spring Boot</span><span class="tech-chip">MVC</span>
+        <span class="tech-chip">DAO / DTO</span><span class="tech-chip">REST</span><span class="tech-chip">Git</span>
       </div>
-    </div>
-
-    <div class="flex flex-wrap gap-3 mb-12 fade-up-d1">
-      <a href="https://github.com/AlexisChartier/scala-realtime-poll" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">GitHub ↗</a>
     </div>
 
     <div class="space-y-14 max-w-3xl">
 
       <section class="fade-up-d2">
-        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Overview</h2>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Contexte</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          Stage de DUT Informatique à l'<strong class="text-warm">INRAE</strong> (Institut National de Recherche pour
+          l'Agriculture, l'Alimentation et l'Environnement), au sein du service <strong class="text-warm">Référentiels
+          Partagés et Plateformes Applicatives (R2PA)</strong> de la Direction des Systèmes d'Information.
+        </p>
         <p class="text-warm/70 leading-relaxed">
-          Serveur HTTP fonctionnel pour créer des sondages, voter et voir les résultats se mettre à jour en temps réel.
-          L'état des sondages est géré en mémoire via un <strong class="text-warm">Ref ZIO</strong> (immutable, thread-safe)
-          et les mises à jour sont diffusées à tous les clients connectés via un <strong class="text-warm">Hub ZIO</strong>.
+          La mission : développer une application web Java/Spring Boot pour afficher les statistiques d'utilisation
+          des données de référentiels (identités, structures, projets de recherche) exposées via des API REST et des
+          flux d'intégration Talend.
         </p>
       </section>
 
       <section class="reveal">
-        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Architecture</h2>
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Mission</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          Le service R2PA gère des référentiels partagés exposés aux autres équipes via des API (PADRE — Portail d'Accès
+          aux Données de Référentiel Externe). L'application développée permet de visualiser l'utilisation de ces
+          référentiels : nombre de requêtes, types d'accès, répartition par source.
+        </p>
         <pre class="mermaid">
 flowchart LR
-  C["Client Web (static)\nHTML/JS vanilla"] -->|REST API| API
-  subgraph API["REST API — Tapir endpoints"]
-    R1["POST /poll (création)"]
-    R2["GET /poll/{id} (consultation)"]
-    R3["POST /poll/{id}/vote"]
+  REF["Référentiels · LDAP · AD · IDM\nIdentités · Structures · Projets"]
+  REF -->|API REST / flux Talend| APP
+  subgraph APP ["Application Spring Boot · MVC"]
+    C["Controllers · REST"]
+    S["Services · logique métier"]
+    DAO["DAO · accès données"]
+    C --> S
+    S --> DAO
   end
-  API --> REF["Ref[Map[...]] (ZIO Ref)\nÉtat en mémoire (volatile)"]
-  REF --> HUB["Hub ZIO\nBroadcast WebSocket\nWS /poll/{id}/results"]
+  APP --> DASH["Dashboard statistiques\nRequêtes · Sources · Tendances"]
         </pre>
-      </section>
-
-      <section class="reveal">
-        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Fonctionnalités</h2>
-        <div class="grid md:grid-cols-2 gap-4">
-          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// API REST</p>
-            <ul class="space-y-2 text-sm text-warm/70 font-mono text-xs">
-              <li>▸ POST /poll — créer un sondage</li>
-              <li>▸ GET /poll/{id} — consulter</li>
-              <li>▸ POST /poll/{id}/vote — voter</li>
-            </ul>
-          </div>
-          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Temps réel</p>
-            <ul class="space-y-2 text-sm text-warm/70 font-mono text-xs">
-              <li>▸ WS /poll/{id}/results</li>
-              <li>▸ Broadcast via Hub ZIO</li>
-              <li>▸ Mise à jour sans refresh</li>
-            </ul>
-          </div>
-        </div>
       </section>
 
       <section class="reveal">
         <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Points techniques</h2>
         <div class="grid md:grid-cols-2 gap-4">
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// ZIO Ref & Hub</p>
-            <p class="text-sm text-warm/70">État partagé thread-safe (Ref) et diffusion concurrente (Hub) — patterns fonctionnels purs pour la concurrence.</p>
+            <p class="text-amber font-mono text-xs mb-2">// Architecture MVC</p>
+            <p class="text-sm text-warm/70">Pattern Model-Vue-Contrôleur strict : Controllers REST, Services pour la logique métier, DAO pour l'accès aux données, DTO pour les échanges.</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Tapir</p>
-            <p class="text-sm text-warm/70">Définition des endpoints REST + WebSocket de manière type-safe, avec génération auto de Swagger UI.</p>
+            <p class="text-amber font-mono text-xs mb-2">// Intégration continue</p>
+            <p class="text-sm text-warm/70">Workflow Git avec merge requests et revues de code. Découverte des pratiques DevOps en environnement d'entreprise.</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Front-end vanilla</p>
-            <p class="text-sm text-warm/70">Client HTML/JS servi directement par le serveur — pas de framework front, pas de build step.</p>
+            <p class="text-amber font-mono text-xs mb-2">// API REST</p>
+            <p class="text-sm text-warm/70">Exposition des statistiques via endpoints REST, consommation des API du service PADRE pour récupérer les données de référentiels.</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Swagger UI</p>
-            <p class="text-sm text-warm/70">Documentation API auto-générée disponible sur /docs.</p>
+            <p class="text-amber font-mono text-xs mb-2">// Référentiels</p>
+            <p class="text-sm text-warm/70">Découverte des systèmes d'information complexes : LDAP, Active Directory, Identity Manager (Forgerock IDM), flux Talend.</p>
           </div>
         </div>
+      </section>
+
+      <section class="reveal">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Bilan</h2>
+        <p class="text-warm/70 leading-relaxed">
+          Premier stage en environnement d'entreprise — découverte des pratiques de développement professionnel :
+          Git workflow avec merge requests, architecture en couches (MVC/DAO/DTO), intégration avec des systèmes
+          d'information complexes (LDAP, IDM) et travail en équipe au sein du service R2PA.
+        </p>
       </section>
 
     </div>
 
             <footer class="mt-16 pt-8 border-t border-coal-700/40">
       <div class="flex items-center justify-between mb-6 gap-4">
-      <a href="festival-du-jeu.html" class="font-mono text-sm text-warm-dim hover:text-amber transition flex items-center gap-2 group">
+      <a href="hydrosciences.html" class="font-mono text-sm text-warm-dim hover:text-amber transition flex items-center gap-2 group">
         <span class="text-amber/40 group-hover:text-amber transition">←</span>
-        <span class="hidden sm:inline">Festival du Jeu</span>
+        <span class="hidden sm:inline">Hydrosciences</span>
       </a>
-        <span class="font-mono text-xs text-warm-dim/50">05/08 · projects</span>
-      <a href="racin.html" class="font-mono text-sm text-warm-dim hover:text-amber transition flex items-center gap-2 group">
-        <span class="hidden sm:inline">RACIN</span>
-        <span class="text-amber/40 group-hover:text-amber transition">→</span>
-      </a>
+        <span class="font-mono text-xs text-warm-dim/50">03/03 · stages</span>
+      <span></span>
       </div>
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-2">
-        <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ~/projects</a>
+        <a href="../index.html#experience" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ~/experience</a>
         <div class="flex gap-4 items-center">
           <a href="https://github.com/AlexisChartier" target="_blank" class="text-warm-dim hover:text-amber transition" aria-label="GitHub">
             <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>

@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alexis Chartier — Ingénieur Informatique & Gestion</title>
+  <meta property="og:title" content="Alexis Chartier — Ingénieur Informatique & Gestion">
+  <meta property="og:description" content="Ingénieur en Informatique & Gestion — Backend, sécurité applicative et architecture de systèmes distribués.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
   <meta name="description" content="Ingénieur en Informatique & Gestion — Backend, sécurité applicative et architecture de systèmes distribués.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c0c0f'/%3E%3Ctext x='16' y='22' font-family='Space Grotesk,sans-serif' font-size='18' font-weight='700' fill='%23f59e0b' text-anchor='middle'%3EAC%3C/text%3E%3C/svg%3E" type="image/svg+xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -26,8 +31,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#1e1e24',
+        primaryTextColor: '#a8a29e',
+        primaryBorderColor: '#f59e0b',
+        lineColor: '#78716c',
+        secondaryColor: '#16161a',
+        tertiaryColor: '#111114',
+        fontFamily: '"JetBrains Mono", monospace',
+        fontSize: '13px',
+      }
+    })
+  </script>
 </head>
 <body class="bg-coal-900 text-warm antialiased" data-page="index">
+
+  <div class="scroll-progress lg:pl-64" id="scroll-progress"></div>
 
   <!-- Top status bar -->
   <div class="status-bar fixed top-0 left-0 right-0 z-50 lg:pl-64">
@@ -38,7 +61,7 @@
     <span class="text-coal-600">·</span>
     <span class="hidden sm:inline">alexis@chartier:~$</span>
     <span class="cursor-blink hidden sm:inline"></span>
-    <span class="ml-auto hidden md:inline text-warm-dim">Montpellier, FR · 43.6°N 3.8°E</span>
+    <span class="ml-auto hidden md:inline text-warm-dim">Geneva, CH</span>
   </div>
 
   <!-- Mobile menu button -->
@@ -52,20 +75,20 @@
       <!-- Logo / Identity -->
       <a href="index.html" class="block mb-10 group">
         <div class="font-display text-xl font-bold text-amber tracking-tight">AC</div>
-        <div class="font-mono text-[0.65rem] text-warm-dim mt-1 group-hover:text-warm transition">./alexix-chartier</div>
+        <div class="font-mono text-[0.65rem] text-warm-dim mt-1 group-hover:text-warm transition">./alexis-chartier</div>
       </a>
 
       <nav class="flex flex-col gap-0.5 font-mono text-sm">
         <a href="#about" class="nav-link active py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">01</span>About</a>
-        <a href="#stats" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">02</span>Stats</a>
-        <a href="#stack" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">03</span>Stack</a>
-        <a href="#projects" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">04</span>Projets</a>
-        <a href="#experience" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">05</span>XP</a>
+        <a href="#stack" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">02</span>Stack</a>
+        <a href="#projects" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">03</span>Projets</a>
+        <a href="#experience" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">04</span>XP</a>
+        <a href="#education" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">05</span>Formation</a>
         <a href="#contact" class="nav-link py-2 pl-5 text-warm-dim hover:text-amber transition"><span class="text-amber/40 mr-2 text-xs">06</span>Contact</a>
       </nav>
 
-      <div class="mt-auto flex flex-col gap-5">
-        <div class="flex gap-4">
+      <div class="mt-auto flex flex-col gap-5 mb-8">
+        <div class="flex gap-4 justify-center">
           <a href="https://github.com/AlexisChartier" target="_blank" class="text-warm-dim hover:text-amber transition" aria-label="GitHub">
             <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </a>
@@ -79,11 +102,6 @@
         <a href="mailto:alexischartier30130pse@gmail.com" class="font-mono text-xs text-amber border border-amber/40 hover:bg-amber/10 transition px-4 py-2 text-center rounded">
           ./contact.sh
         </a>
-        <div class="font-mono text-[0.65rem] text-warm-dim/60 leading-relaxed">
-          Polytech Montpellier<br>
-          Promo 2026 · Ing. Informatique<br>
-          & Gestion
-        </div>
       </div>
     </div>
   </aside>
@@ -114,7 +132,7 @@
         </p>
         <div class="flex flex-wrap gap-3 fade-up-d4">
           <span class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-1.5 rounded text-sm font-mono">
-            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span class="w-2 h-2 bg-green-400 rounded-full status-pulse"></span>
             open_to_work
           </span>
           <span class="inline-flex items-center gap-2 bg-amber/10 border border-amber/30 text-amber px-4 py-1.5 rounded text-sm font-mono">
@@ -134,46 +152,14 @@
             <div class="text-amber/40 mb-1">// toeic</div>
             <div class="text-warm/80">940/990</div>
           </div>
-          <div>
-            <div class="text-amber/40 mb-1">// status</div>
-            <div class="text-green-400">hiring</div>
-          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- STATS -->
-    <section id="stats" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40">
-      <div class="section-divider">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">02</span> Git Stats</h2>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded p-5 text-center transition hover:border-amber/40">
-          <div class="text-4xl font-bold text-amber font-mono">307</div>
-          <div class="text-[0.7rem] text-warm-dim mt-1 font-mono">contributions_12m</div>
-        </div>
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded p-5 text-center transition hover:border-amber/40">
-          <div class="text-4xl font-bold text-amber font-mono">248</div>
-          <div class="text-[0.7rem] text-warm-dim mt-1 font-mono">commits</div>
-        </div>
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded p-5 text-center transition hover:border-amber/40">
-          <div class="text-4xl font-bold text-amber font-mono">41</div>
-          <div class="text-[0.7rem] text-warm-dim mt-1 font-mono">pull_requests</div>
-        </div>
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded p-5 text-center transition hover:border-amber/40">
-          <div class="text-4xl font-bold text-amber font-mono">32+</div>
-          <div class="text-[0.7rem] text-warm-dim mt-1 font-mono">public_repos</div>
-        </div>
-      </div>
-      <div class="flex justify-center">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=AlexisChartier&theme=tokyonight" alt="GitHub Streak" class="rounded-lg max-w-full opacity-90">
       </div>
     </section>
 
     <!-- STACK -->
-    <section id="stack" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40">
+    <section id="stack" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40 reveal">
       <div class="section-divider">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">03</span> Tech Stack</h2>
+        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">02</span> Tech Stack</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
         <div>
@@ -181,7 +167,6 @@
           <div class="flex flex-wrap gap-2">
             <span class="tech-chip">PHP</span><span class="tech-chip">Laravel</span><span class="tech-chip">Java</span>
             <span class="tech-chip">Spring Boot</span><span class="tech-chip">Python</span><span class="tech-chip">Node.js</span>
-            <span class="tech-chip">C++</span><span class="tech-chip">Scala</span>
           </div>
           <h3 class="font-mono text-[0.7rem] text-warm-dim uppercase tracking-[0.2em] mb-4 mt-8">// Frontend & Mobile</h3>
           <div class="flex flex-wrap gap-2">
@@ -193,9 +178,9 @@
           <h3 class="font-mono text-[0.7rem] text-warm-dim uppercase tracking-[0.2em] mb-4">// Databases</h3>
           <div class="flex flex-wrap gap-2">
             <span class="tech-chip">MySQL</span><span class="tech-chip">MariaDB</span><span class="tech-chip">MongoDB</span>
-            <span class="tech-chip">Redis</span><span class="tech-chip">PostgreSQL</span><span class="tech-chip">Qdrant</span>
+            <span class="tech-chip">Redis</span><span class="tech-chip">PostgreSQL</span>
           </div>
-          <h3 class="font-mono text-[0.7rem] text-warm-dim uppercase tracking-[0.2em] mb-4 mt-8">// Security & DevOps</h3>
+          <h3 class="font-mono text-[0.7rem] text-warm-dim uppercase tracking-[0.2em] mb-4 mt-8">// Authentication & DevOps</h3>
           <div class="flex flex-wrap gap-2">
             <span class="tech-chip">OAuth2</span><span class="tech-chip">SAML2</span><span class="tech-chip">JWT</span>
             <span class="tech-chip">2FA</span><span class="tech-chip">Docker</span><span class="tech-chip">K8s</span>
@@ -206,20 +191,20 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40">
+    <section id="projects" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40 reveal">
       <div class="section-divider">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">04</span> Projects</h2>
+        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">03</span> Projects</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-5">
 
         <!-- ShopyVerse -->
-        <a href="projects/shopyverse.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
+        <a href="projects/shopyverse.html" class="bracket-card card-lift group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block reveal" style="transition-delay: 0ms">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">🤖</span>
               <div>
                 <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">ShopyVerse</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">académique · 2025-12</p>
+                <p class="text-[0.7rem] text-warm-dim font-mono">Polytech · 2025-12</p>
               </div>
             </div>
             <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">01</span>
@@ -232,13 +217,13 @@
         </a>
 
         <!-- COHOMA -->
-        <a href="projects/cohoma.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
+        <a href="projects/cohoma.html" class="bracket-card card-lift group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block reveal" style="transition-delay: 50ms">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">🚁</span>
               <div>
                 <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">COHOMA</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">ministère · 2025-06</p>
+                <p class="text-[0.7rem] text-warm-dim font-mono">Ministère des armées · 2025-06</p>
               </div>
             </div>
             <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">02</span>
@@ -251,13 +236,13 @@
         </a>
 
         <!-- Eventy -->
-        <a href="projects/eventy.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
+        <a href="projects/eventy.html" class="bracket-card card-lift group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block reveal" style="transition-delay: 100ms">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">🎫</span>
               <div>
                 <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Eventy</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">académique · 2025-11</p>
+                <p class="text-[0.7rem] text-warm-dim font-mono">Polytech · 2025-11</p>
               </div>
             </div>
             <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">03</span>
@@ -270,13 +255,13 @@
         </a>
 
         <!-- Festival du Jeu -->
-        <a href="projects/festival-du-jeu.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
+        <a href="projects/festival-du-jeu.html" class="bracket-card card-lift group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block reveal" style="transition-delay: 150ms">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">🎮</span>
               <div>
                 <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Festival du Jeu</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">dev mobile · 2025-03</p>
+                <p class="text-[0.7rem] text-warm-dim font-mono">Polytech · 2025-03</p>
               </div>
             </div>
             <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">04</span>
@@ -288,36 +273,17 @@
           <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
         </a>
 
-        <!-- Hydrosciences -->
-        <a href="projects/hydrosciences.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🌧️</span>
-              <div>
-                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Hydrosciences</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">stage · 2024</p>
-              </div>
-            </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">05</span>
-          </div>
-          <p class="text-sm text-warm/70 mb-4">Pluviométrie : pipeline Python, apps Shiny (R), interpolation IDW, matrices HDF5/MTX.</p>
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="tech-chip">Python</span><span class="tech-chip">R/Shiny</span><span class="tech-chip">HDF5</span>
-          </div>
-          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
-        </a>
-
         <!-- Scala -->
-        <a href="projects/scala-poll.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
+        <a href="projects/scala-poll.html" class="bracket-card card-lift group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block reveal" style="transition-delay: 200ms">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">⚡</span>
               <div>
                 <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Realtime Poll</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">académique · 2025-12</p>
+                <p class="text-[0.7rem] text-warm-dim font-mono">Polytech · 2025-12</p>
               </div>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">06</span>
+            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">05</span>
           </div>
           <p class="text-sm text-warm/70 mb-4">Sondages temps réel WebSocket. ZIO (Ref/Hub), Tapir, Swagger UI.</p>
           <div class="flex flex-wrap gap-1.5 mb-4">
@@ -327,16 +293,16 @@
         </a>
 
         <!-- RACIN -->
-        <a href="projects/racin.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
+        <a href="projects/racin.html" class="bracket-card card-lift group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block reveal" style="transition-delay: 250ms">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">🧠</span>
               <div>
                 <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">RACIN</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">paris saclay</p>
+                <p class="text-[0.7rem] text-warm-dim font-mono">Université Paris saclay</p>
               </div>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">07</span>
+            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">06</span>
           </div>
           <p class="text-sm text-warm/70 mb-4">IA (LLM & détection d'objets) pour étude sociologique sur l'alcool dans le cinéma.</p>
           <div class="flex flex-wrap gap-1.5 mb-4">
@@ -346,16 +312,16 @@
         </a>
 
         <!-- Data Science -->
-        <a href="projects/data-science.html" class="bracket-card group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block">
+        <a href="projects/data-science.html" class="bracket-card card-lift group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block reveal" style="transition-delay: 300ms">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">📈</span>
               <div>
                 <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">NLP Analysis</h3>
-                <p class="text-[0.7rem] text-warm-dim font-mono">polytech · 2024-01</p>
+                <p class="text-[0.7rem] text-warm-dim font-mono">Polytech · 2024-01</p>
               </div>
             </div>
-            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">08</span>
+            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">07</span>
           </div>
           <p class="text-sm text-warm/70 mb-4">NLP, sentiment analysis, clustering sur retours diplômés Polytech (promos 2014-2022).</p>
           <div class="flex flex-wrap gap-1.5 mb-4">
@@ -364,46 +330,95 @@
           <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
         </a>
 
+        <!-- Conecsio -->
+        <a href="projects/conecsio.html" class="bracket-card card-lift group bg-coal-850 border border-coal-700/50 rounded-lg p-6 hover:bg-coal-800 transition-all duration-300 block reveal" style="transition-delay: 350ms">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🏥</span>
+              <div>
+                <h3 class="font-display font-semibold text-warm group-hover:text-amber transition text-lg">Conecsio</h3>
+                <p class="text-[0.7rem] text-warm-dim font-mono">PFE · 2025-2026</p>
+              </div>
+            </div>
+            <span class="font-mono text-[0.65rem] text-amber/30 group-hover:text-amber/60 transition">08</span>
+          </div>
+          <p class="text-sm text-warm/70 mb-4">Clustering hybride de patients FHIR : HDBSCAN, SNOMED CT, UMAP, LLM (Ollama).</p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="tech-chip">Python</span><span class="tech-chip">HDBSCAN</span><span class="tech-chip">FHIR</span>
+          </div>
+          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+        </a>
+
       </div>
     </section>
 
     <!-- EXPERIENCE -->
-    <section id="experience" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40">
+    <section id="experience" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40 reveal">
       <div class="section-divider">
-        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">05</span> Experience</h2>
+        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">04</span> Experience</h2>
+      </div>
+      <div class="max-w-2xl space-y-8">
+        <a href="stages/infomaniak.html" class="relative pl-8 border-l-2 border-coal-700/50 block group hover:border-amber/40 transition">
+          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900 group-hover:scale-125 transition"></div>
+          <p class="font-mono text-xs text-amber/60 mb-1">// 2026</p>
+          <h3 class="font-display text-warm font-semibold text-lg group-hover:text-amber transition">Back-End Developer · PHP Laravel</h3>
+          <p class="text-amber text-sm mb-2 font-mono">Infomaniak — Genève, CH</p>
+          <p class="text-sm text-warm/70">Stage de fin d'études (6 mois). Sécurité applicative : OAuth2, OIDC, SAML, JWT, 2FA, CI/CD.</p>
+          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+        </a>
+        <a href="stages/hydrosciences.html" class="relative pl-8 border-l-2 border-coal-700/50 block group hover:border-amber/40 transition">
+          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900 group-hover:scale-125 transition"></div>
+          <p class="font-mono text-xs text-amber/60 mb-1">// 2024</p>
+          <h3 class="font-display text-warm font-semibold text-lg group-hover:text-amber transition">Data Ops</h3>
+          <p class="text-amber text-sm mb-2 font-mono">Hydrosciences Montpellier — FR</p>
+          <p class="text-sm text-warm/70">Pipeline pluviométrie : FTP, calibration, HDF5/MTX, apps Shiny, interpolation IDW.</p>
+          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+        </a>
+        <a href="stages/inrae.html" class="relative pl-8 border-l-2 border-coal-700/50 block group hover:border-amber/40 transition">
+          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900 group-hover:scale-125 transition"></div>
+          <p class="font-mono text-xs text-amber/60 mb-1">// 2023</p>
+          <h3 class="font-display text-warm font-semibold text-lg group-hover:text-amber transition">Back-End Developer · Java Spring Boot</h3>
+          <p class="text-amber text-sm mb-2 font-mono">INRAE — Avignon, FR</p>
+          <p class="text-sm text-warm/70">Développement backend Java Spring Boot (MVC/DAO/DTO). Statistiques de référentiels.</p>
+          <span class="font-mono text-xs text-warm-dim group-hover:text-amber transition">cat details →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="px-6 md:px-12 lg:px-20 py-24 border-t border-coal-700/40 reveal">
+      <div class="section-divider">
+        <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">05</span> Formation</h2>
       </div>
       <div class="max-w-2xl space-y-8">
         <div class="relative pl-8 border-l-2 border-coal-700/50">
           <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900"></div>
-          <p class="font-mono text-xs text-amber/60 mb-1">// 2026</p>
-          <h3 class="font-display text-warm font-semibold text-lg">Back-End Developer · PHP Laravel</h3>
-          <p class="text-amber text-sm mb-2 font-mono">Infomaniak — Genève, CH</p>
-          <p class="text-sm text-warm/70">Stage de fin d'études. Sécurité applicative : OAuth2, SAML, JWT, 2FA.</p>
+          <p class="font-mono text-xs text-amber/60 mb-1">// 2022 — 2026</p>
+          <h3 class="font-display text-warm font-semibold text-lg">Ingénieur Informatique &amp; Gestion</h3>
+          <p class="text-amber text-sm mb-2 font-mono">Polytech Montpellier</p>
+          <p class="text-sm text-warm/70">École d'ingénieurs avec formation spécialisée en Informatique & Gestion. Formation en développement logiciel, architecture de systèmes, gestion de projet et data science.</p>
         </div>
         <div class="relative pl-8 border-l-2 border-coal-700/50">
           <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900"></div>
-          <p class="font-mono text-xs text-amber/60 mb-1">// 2024</p>
-          <h3 class="font-display text-warm font-semibold text-lg">Data Ops</h3>
-          <p class="text-amber text-sm mb-2 font-mono">Hydrosciences Montpellier — FR</p>
-          <p class="text-sm text-warm/70">Pipeline pluviométrie : FTP, calibration, HDF5/MTX, apps Shiny.</p>
-        </div>
-        <div class="relative pl-8 border-l-2 border-coal-700/50">
-          <div class="absolute -left-[7px] top-1.5 w-3 h-3 bg-amber rounded-full border-2 border-coal-900"></div>
-          <p class="font-mono text-xs text-amber/60 mb-1">// 2023</p>
-          <h3 class="font-display text-warm font-semibold text-lg">Back-End Developer · Java Spring Boot</h3>
-          <p class="text-amber text-sm mb-2 font-mono">INRAE — Avignon, FR</p>
-          <p class="text-sm text-warm/70">Développement backend Java Spring Boot.</p>
+          <p class="font-mono text-xs text-amber/60 mb-1">// 2020 — 2022</p>
+          <h3 class="font-display text-warm font-semibold text-lg">DUT Informatique</h3>
+          <p class="text-amber text-sm mb-2 font-mono">IUT Montpellier Sète</p>
+          <p class="text-sm text-warm/70">Formation en développement logiciel : algorithmique, programmation orientée objet, bases de données, web, réseaux et systèmes.</p>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="px-6 md:px-12 lg:px-20 py-32 border-t border-coal-700/40 text-center">
+    <section id="contact" class="px-6 md:px-12 lg:px-20 py-32 border-t border-coal-700/40 text-center reveal">
       <div class="section-divider justify-center">
         <h2 class="font-mono text-sm text-amber"><span class="text-amber/40">06</span> Contact</h2>
       </div>
       <h3 class="font-display text-3xl md:text-5xl font-bold text-warm mb-4">Let's build something<span class="text-amber">.</span></h3>
-      <p class="text-warm/60 max-w-md mx-auto mb-8 text-sm">En recherche d'emploi — n'hésitez pas à me contacter pour échanger sur une opportunité.</p>
+      <div class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-2 rounded text-sm font-mono mb-6">
+        <span class="w-2 h-2 bg-green-400 rounded-full status-pulse"></span>
+        available_for_hire · 2026
+      </div>
+      <p class="text-warm/60 max-w-md mx-auto mb-8 text-sm">En recherche d'emploi, n'hésitez pas à me contacter pour échanger sur une opportunité.</p>
       <a href="mailto:alexischartier30130pse@gmail.com" class="font-mono text-sm text-amber border border-amber/40 rounded px-6 py-3 hover:bg-amber/10 transition inline-block">
         ./contact.sh
       </a>
@@ -419,7 +434,7 @@
 ═══════════════════════════════════════</div>
       <footer class="text-[0.7rem] text-warm-dim/60 font-mono">
         Built with Tailwind · No frameworks · No build step · Just HTML<br>
-        © 2026 Alexis Chartier — Polytech Montpellier
+        © 2026 Alexis Chartier
       </footer>
     </section>
 
@@ -464,6 +479,8 @@
     sections.forEach(s => observer.observe(s));
   </script>
   <script src="assets/kbd-nav.js"></script>
+  <script src="assets/scroll.js"></script>
+  <script src="assets/lightbox.js"></script>
 
 </body>
 </html>

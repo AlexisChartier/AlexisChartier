@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eventy — Alexis Chartier</title>
+  <meta name="description" content="Plateforme de billetterie événementielle — microservices Java/Spring Boot, Kafka, Keycloak, React Native.">
+  <meta property="og:title" content="Eventy — Alexis Chartier">
+  <meta property="og:description" content="Plateforme de billetterie événementielle — microservices Java/Spring Boot, Kafka, Keycloak, React Native.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { theme: { extend: {
@@ -12,11 +17,32 @@
     } } }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='230c0c0f'/%3E%3Ctext x='16' y='22' font-family='Space Grotesk,sans-serif' font-size='18' font-weight='700' fill='23f59e0b' text-anchor='middle'%3EAC%3C/text%3E%3C/svg%3E" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#1e1e24',
+        primaryTextColor: '#a8a29e',
+        primaryBorderColor: '#f59e0b',
+        lineColor: '#78716c',
+        secondaryColor: '#16161a',
+        tertiaryColor: '#111114',
+        fontFamily: '"JetBrains Mono", monospace',
+        fontSize: '13px',
+      }
+    })
+  </script>
+  <script src="../assets/mermaid-fix.js"></script>
 </head>
 <body class="bg-coal-900 text-warm antialiased" data-page="eventy">
 
+  <div class="scroll-progress" id="scroll-progress"></div>
   <div class="status-bar fixed top-0 left-0 right-0 z-50">
     <span class="status-dot bg-green-400"></span>
     <span>PROJECT · 03/08</span>
@@ -28,12 +54,14 @@
   <main class="blueprint-grid max-w-5xl mx-auto px-6 md:px-12 pt-20 pb-20">
 
     <div class="fade-up">
-      <p class="font-mono text-xs text-amber/60 mb-3">// projet académique · novembre 2025</p>
+      <p class="font-mono text-xs text-amber/60 mb-3">// projet académique · oct—nov 2025 · équipe de 2</p>
       <h1 class="font-display text-4xl md:text-6xl font-bold text-warm mb-4 tracking-tight">Eventy<span class="text-amber">.</span></h1>
-      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Architecture microservices Java/Spring Boot : API Gateway, service discovery Eureka et user-service.</p>
+      <p class="text-xl text-warm-dim max-w-2xl mb-6 font-light">Plateforme de billetterie événementielle sécurisée — architecture microservices Java/Spring Boot avec Kafka, Keycloak et React Native.</p>
       <div class="flex flex-wrap gap-2 mb-8">
         <span class="tech-chip">Java 21</span><span class="tech-chip">Spring Boot 3</span><span class="tech-chip">Spring Cloud Gateway</span>
-        <span class="tech-chip">Eureka</span><span class="tech-chip">OpenFeign</span><span class="tech-chip">Docker</span>
+        <span class="tech-chip">Eureka</span><span class="tech-chip">Kafka</span><span class="tech-chip">Keycloak</span>
+        <span class="tech-chip">OpenFeign</span><span class="tech-chip">PostgreSQL</span><span class="tech-chip">Flyway</span>
+        <span class="tech-chip">React Native</span><span class="tech-chip">TypeScript</span><span class="tech-chip">Stripe</span><span class="tech-chip">Docker</span><span class="tech-chip">Dokku</span>
       </div>
     </div>
 
@@ -41,7 +69,13 @@
       <a href="https://github.com/AlexisChartier/api-gateway" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">api-gateway ↗</a>
       <a href="https://github.com/AlexisChartier/eventy-eureka-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">eureka-service ↗</a>
       <a href="https://github.com/AlexisChartier/eventy-user-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">user-service ↗</a>
-      <a href="https://github.com/AlexisChartier/Eventy-back" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">Eventy-back ↗</a>
+      <a href="https://github.com/Mattheo4427/Eventy-back" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">Eventy-back (monorepo) ↗</a>
+      <a href="https://github.com/Mattheo4427/Eventy-front" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">Eventy-front ↗</a>
+      <a href="https://github.com/Mattheo4427/eventy-tickets-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">tickets-service ↗</a>
+      <a href="https://github.com/Mattheo4427/eventy-events-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">events-service ↗</a>
+      <a href="https://github.com/Mattheo4427/eventy-transactions-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">transactions-service ↗</a>
+      <a href="https://github.com/Mattheo4427/eventy-keycloak-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">keycloak-service ↗</a>
+      <a href="https://github.com/Mattheo4427/eventy-interactions-service" target="_blank" class="font-mono text-xs text-amber border border-amber/40 rounded px-3 py-2 hover:bg-amber/10 transition">interactions-service ↗</a>
     </div>
 
     <div class="space-y-14 max-w-3xl">
@@ -49,87 +83,182 @@
       <section class="fade-up-d2">
         <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Architecture</h2>
         <p class="text-warm/70 leading-relaxed mb-4">
-          Eventy est une architecture microservices complète pour la gestion d'événements (festivals, concerts, etc.).
-          Le client (application mobile) ne communique qu'avec l'API Gateway, qui route dynamiquement les requêtes
-          vers les microservices internes via Eureka.
+          Eventy est une plateforme de billetterie événementielle (concerts, festivals, sport) permettant l'achat et
+          la revente de billets en toute sécurité. L'architecture repose sur <strong class="text-warm">7 microservices Java/Spring Boot</strong>
+          découplés, communiquant via <strong class="text-warm">OpenFeign</strong> (synchrone) et <strong class="text-warm">Apache Kafka</strong> (asynchrone),
+          avec <strong class="text-warm">Keycloak</strong> pour l'authentification OIDC.
         </p>
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
-        ┌─────────────┐
-        │  Client iOS │
-        └──────┬──────┘
-               │ HTTP
-        ┌──────▼──────────────┐
-        │   API Gateway        │  ← Spring Cloud Gateway
-        │   (port 8080)        │     Routage par path
-        └──────┬───────────────┘
-               │ lb://service-name
-        ┌──────▼──────────────┐
-        │   Eureka Server      │  ← Service Discovery
-        │   (port 8761)        │     Dashboard : /8761
-        └──────┬───────────────┘
-               │
-      ┌────────┼────────────┐
-      │        │            │
-┌─────▼──┐ ┌──▼─────┐ ┌───▼─────┐
-│ user-  │ │ event- │ │ ticket- │
-│ service│ │ service│ │ service │
-└────────┘ └────────┘ └─────────┘</div>
+        <p class="text-warm/70 leading-relaxed mb-6">
+          Le client mobile (React Native + Expo) ne communique qu'avec l'API Gateway, qui route dynamiquement
+          les requêtes vers les microservices via Eureka. Chaque service possède sa propre base PostgreSQL,
+          versionnée par Flyway.
+        </p>
+        <pre class="mermaid">
+flowchart LR
+  RN["React Native\n(Expo SDK 52)\nTypeScript · NativeWind\nStripe · Keycloak Auth"] -->|HTTPS| GW
+  GW["API Gateway :8080\nSpring Cloud Gateway\nRoutage par path + lb://\nRate limiting, CORS"] -->|découverte| EU
+  EU["Eureka :8761\nService Discovery\nHeartbeats, Dashboard"]
+  GW --> Users["Users :8083"]
+  GW --> Events["Events :8082"]
+  GW --> Tickets["Tickets :8084"]
+  GW --> Txn["Transactions :8085"]
+  GW --> Inter["Interactions :8086"]
+  GW --> KC["Keycloak :8080\nOIDC IdP"]
+  Users -.->|Kafka| K["Apache Kafka\nPaymentValidatedEvent\nTransactionRefundedEvent"]
+  Tickets -.->|Kafka| K
+  Txn -.->|Kafka| K
+        </pre>
       </section>
 
-      <section>
-        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> API Gateway</h2>
+      <section class="reveal">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Diagramme d'architecture</h2>
+        <div class="bracket-card img-hover bg-coal-850 border border-coal-700/50 rounded-lg p-3">
+          <img src="../assets/img/eventy-diagram-general.png" alt="Eventy architecture générale" class="rounded w-full" loading="lazy" decoding="async" />
+          <p class="font-mono text-xs text-warm-dim mt-2 text-center">Architecture générale — gateway, services, Kafka, Keycloak</p>
+        </div>
+      </section>
+
+      <section class="reveal">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Vue conteneurs Docker</h2>
+        <div class="bracket-card img-hover bg-coal-850 border border-coal-700/50 rounded-lg p-3">
+          <img src="../assets/img/eventy-diagram-container.png" alt="Eventy diagramme conteneurs" class="rounded w-full" loading="lazy" decoding="async" />
+          <p class="font-mono text-xs text-warm-dim mt-2 text-center">Déploiement Docker Compose — réseau mapnet, 1 DB par service</p>
+        </div>
+      </section>
+
+      <section class="reveal">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Dépendances entre microservices</h2>
+        <div class="bracket-card img-hover bg-coal-850 border border-coal-700/50 rounded-lg p-3">
+          <img src="../assets/img/eventy-diagram-dependance.png" alt="Eventy dépendances microservices" class="rounded w-full" loading="lazy" decoding="async" />
+          <p class="font-mono text-xs text-warm-dim mt-2 text-center">Appels synchrones (Feign) et événements asynchrones (Kafka)</p>
+        </div>
+      </section>
+
+      <section class="reveal">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Flux transactionnel · Kafka</h2>
         <p class="text-warm/70 leading-relaxed mb-4">
-          Point d'entrée unique (port 8080). Le routage est défini programmatiquement : chaque route intercepte un
-          pattern de chemin et le redirige vers un service découvert par Eureka.
+          Le cœur de la plateforme : un achat de billet déclenche un flux asynchrone robuste via Kafka,
+          garantissant la cohérence finale entre les services même en cas de panne temporaire.
         </p>
-        <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5 font-mono text-xs text-warm/60 leading-relaxed whitespace-pre">
-.route("user-service-route", r -> r
-    .path("/api/users/**")
-    .filters(f -> f.stripPrefix(2))
-    .uri("lb://user-service")  // Load balancing via Eureka
-)</div>
-        <p class="text-sm text-warm-dim mt-3 font-mono text-xs">// lb:// = load balancing client-side via Eureka</p>
+        <pre class="mermaid">
+sequenceDiagram
+  participant U as Utilisateur
+  participant T as Transactions
+  participant S as Stripe
+  participant K as Kafka
+  participant Ti as Tickets
+  participant Us as Users
+
+  U->>T: Achat billet
+  T->>S: Paiement CB
+  S-->>T: Webhook (paiement OK)
+  T->>K: PaymentValidatedEvent
+  K->>Ti: Consomme → billet = SOLD
+  K->>Us: Consomme → crédit wallet vendeur
+  Note over T,Us: Résilience : Kafka retient l'événement si un service est hors ligne
+        </pre>
+        <div class="grid md:grid-cols-2 gap-4 mt-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Échec paiement</p>
+            <p class="text-sm text-warm/70">Libération immédiate du lock sur le billet via appel synchrone Feign. Le billet redevient achetable en &lt;100ms.</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Remboursement admin</p>
+            <p class="text-sm text-warm/70">Déclenche un flux Kafka inverse <code class="text-amber/80">TransactionRefundedEvent</code>. Débit automatique du vendeur pour maintenir l'équilibre comptable.</p>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Service Discovery · Eureka</h2>
-        <p class="text-warm/70 leading-relaxed">
-          Eureka sert d'annuaire dynamique : les microservices s'enregistrent au démarrage et envoient des heartbeats.
-          Eureka retire les instances qui ne répondent plus. Le dashboard web (port 8761) permet de visualiser
-          l'état du système en temps réel.
+      <section class="reveal">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Sécurité · Keycloak</h2>
+        <p class="text-warm/70 leading-relaxed mb-4">
+          L'authentification est entièrement déléguée à <strong class="text-warm">Keycloak</strong> (Identity Provider OIDC).
+          Le frontend mobile utilise <code class="text-amber/80">Expo Auth Session</code> pour le flow OAuth2, et stocke
+          le JWT via <code class="text-amber/80">Secure Store</code>. Côté backend, chaque microservice agit comme
+          <em>Resource Server</em> et valide le JWT (signature + expiration) via Spring Security.
         </p>
+        <pre class="mermaid">
+flowchart LR
+  RN["React Native\n(Expo Auth)"] -->|OAuth2| KC["Keycloak\n(OIDC IdP)"]
+  KC -->|JWT + Refresh| RN
+  RN -->|Authorization: Bearer JWT| MS["Microservices\n(Resource Server)\n@PreAuthorize hasRole\nRBAC : admin, user"]
+        </pre>
       </section>
 
-      <section>
-        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Points techniques</h2>
+      <section class="reveal">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Stack technique</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Backend</p>
+            <p class="text-sm text-warm/70">Java 21, Spring Boot 3.x, Spring Security (Resource Server), Spring Cloud Gateway, OpenFeign, Flyway, Maven</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Data & Comms</p>
+            <p class="text-sm text-warm/70">PostgreSQL (1 DB par service), Apache Kafka, Keycloak (OIDC IdP), Netflix Eureka</p>
+          </div>
+          <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
+            <p class="text-amber font-mono text-xs mb-2">// Frontend & DevOps</p>
+            <p class="text-sm text-warm/70">React Native (Expo SDK 52), TypeScript, NativeWind, Stripe, Docker Compose, Dokku, GitHub Actions</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="reveal">
+        <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Points techniques clés</h2>
         <div class="grid md:grid-cols-2 gap-4">
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
             <p class="text-amber font-mono text-xs mb-2">// Routage dynamique</p>
-            <p class="text-sm text-warm/70">Aucune adresse IP en dur : la gateway découvre les services par leur nom logique via Eureka.</p>
+            <p class="text-sm text-warm/70">La gateway découvre les services par leur nom logique via Eureka. Aucune adresse IP en dur, load balancing client-side avec <code class="text-amber/80">lb://</code>.</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Load balancing</p>
-            <p class="text-sm text-warm/70">Répartition de charge client-side avec lb:// — plusieurs instances gérées automatiquement.</p>
+            <p class="text-amber font-mono text-xs mb-2">// Kafka event-driven</p>
+            <p class="text-sm text-warm/70">Découplage asynchrone : <code class="text-amber/80">PaymentValidatedEvent</code> et <code class="text-amber/80">TransactionRefundedEvent</code> garantissent la cohérence finale sans blocage.</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Health checks</p>
-            <p class="text-sm text-warm/70">Eureka reçoit les heartbeats des services et retire les instances défaillantes.</p>
+            <p class="text-amber font-mono text-xs mb-2">// Security RBAC</p>
+            <p class="text-sm text-warm/70">JWT validé par chaque microservice via Spring Security. Routes sécurisées avec <code class="text-amber/80">@PreAuthorize</code>, rôles admin/user extraits du token.</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Cross-cutting</p>
-            <p class="text-sm text-warm/70">Centralisation future de l'authentification, rate limiting et logging au niveau de la gateway.</p>
+            <p class="text-amber font-mono text-xs mb-2">// DB per service</p>
+            <p class="text-sm text-warm/70">1 PostgreSQL par microservice, versionnée par Flyway. Isolation totale des données, conformément au pattern microservices.</p>
           </div>
         </div>
       </section>
 
     </div>
 
-    <div class="mt-16 pt-8 border-t border-coal-700/40">
-      <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ../projects</a>
-    </div>
+            <footer class="mt-16 pt-8 border-t border-coal-700/40">
+      <div class="flex items-center justify-between mb-6 gap-4">
+      <a href="cohoma.html" class="font-mono text-sm text-warm-dim hover:text-amber transition flex items-center gap-2 group">
+        <span class="text-amber/40 group-hover:text-amber transition">←</span>
+        <span class="hidden sm:inline">COHOMA</span>
+      </a>
+        <span class="font-mono text-xs text-warm-dim/50">03/08 · projects</span>
+      <a href="festival-du-jeu.html" class="font-mono text-sm text-warm-dim hover:text-amber transition flex items-center gap-2 group">
+        <span class="hidden sm:inline">Festival du Jeu</span>
+        <span class="text-amber/40 group-hover:text-amber transition">→</span>
+      </a>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-2">
+        <a href="../index.html#projects" class="font-mono text-sm text-amber hover:opacity-80 transition">← cd ~/projects</a>
+        <div class="flex gap-4 items-center">
+          <a href="https://github.com/AlexisChartier" target="_blank" class="text-warm-dim hover:text-amber transition" aria-label="GitHub">
+            <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/alexis-chartier-8120671b7/" target="_blank" class="text-warm-dim hover:text-amber transition" aria-label="LinkedIn">
+            <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="mailto:alexischartier30130pse@gmail.com" class="text-warm-dim hover:text-amber transition" aria-label="Email">
+            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
 
   </main>
 
   <script src="../assets/kbd-nav.js"></script>
+  <script src="../assets/scroll.js"></script>
+  <script src="../assets/lightbox.js"></script>
 </body>
 </html>

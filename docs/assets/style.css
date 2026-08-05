@@ -19,6 +19,81 @@
   --warm-gray-dim: #78716c;
 }
 
+/* Reduced motion — respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus visible — keyboard navigation indicator */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+a:focus-visible, button:focus-visible {
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Text selection — theme-aware */
+::selection { background: rgba(245, 158, 11, 0.25); color: #fbbf24; }
+::-moz-selection { background: rgba(245, 158, 11, 0.25); color: #fbbf24; }
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px; z-index: 60;
+  background: var(--amber);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.1s ease-out;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Reveal on scroll (subtle) */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Image hover (subtle scale) */
+.img-hover { overflow: hidden; border-radius: 6px; }
+.img-hover img {
+  transition: transform 0.4s ease, filter 0.4s ease;
+  cursor: zoom-in;
+  display: block;
+}
+.img-hover:hover img { transform: scale(1.02); }
+
+/* Link underline grow */
+.link-underline {
+  background-image: linear-gradient(var(--amber), var(--amber));
+  background-size: 0 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+  text-decoration: none;
+}
+.link-underline:hover { background-size: 100% 1px; }
+
+/* ASCII diagram horizontal scroll on mobile */
+.bracket-card.pre-card { overflow-x: auto; }
+.bracket-card.pre-card::-webkit-scrollbar { height: 4px; }
+.bracket-card.pre-card::-webkit-scrollbar-thumb { background: var(--charcoal-600); border-radius: 2px; }
+
+/* Card hover lift (subtle) */
+.card-lift { transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease; }
+.card-lift:hover { transform: translateY(-2px); }
+
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background: var(--charcoal-900);
@@ -96,6 +171,13 @@ body {
   50% { box-shadow: 0 0 0 6px transparent; }
 }
 .glow-pulse { animation: glowPulse 2s ease-in-out infinite; }
+
+/* Status dot pulse (open to work) */
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+}
+.status-pulse { animation: statusPulse 1.8s ease-in-out infinite; }
 
 /* Nav link active indicator */
 .nav-link { position: relative; }
@@ -413,4 +495,180 @@ kbd.kbd-mod {
   font-size: 0.55rem;
   padding: 0.1rem 0.25rem;
   min-width: auto;
+}
+
+/* ========================================
+   Lightbox — click to zoom image
+   ======================================== */
+
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10000;
+  background: rgba(8, 8, 10, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  cursor: zoom-out;
+}
+.lightbox-overlay.open {
+  display: flex;
+  animation: kbdFadeIn 0.2s ease-out;
+}
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 88vh;
+  border-radius: 8px;
+  border: 1px solid var(--charcoal-600);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(245, 158, 11, 0.1);
+  animation: kbdSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  object-fit: contain;
+}
+.lightbox-caption {
+  position: fixed;
+  bottom: 1.5rem; left: 0; right: 0;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--warm-gray-dim);
+  pointer-events: none;
+}
+.lightbox-close {
+  position: fixed;
+  top: 1rem; right: 1.5rem;
+  color: var(--warm-gray-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+.lightbox-close:hover { color: var(--amber); }
+.lightbox-svg {
+  display: none;
+  max-width: 92vw;
+  max-height: 88vh;
+  border-radius: 8px;
+  border: 1px solid var(--charcoal-600);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(245, 158, 11, 0.1);
+  animation: kbdSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--charcoal-850);
+  padding: 2rem;
+  overflow: auto;
+  cursor: auto;
+}
+.lightbox-svg svg {
+  max-width: none;
+}
+
+/* ========================================
+   Mermaid Diagrams
+   ======================================== */
+
+.mermaid {
+  display: flex;
+  justify-content: center;
+  background: var(--charcoal-850);
+  border: 1px solid var(--charcoal-700);
+  border-radius: 8px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  cursor: zoom-in;
+  transition: border-color 0.2s ease;
+}
+.mermaid:hover {
+  border-color: var(--amber);
+}
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ========================================
+   Code Blocks (manual syntax highlighting)
+   ======================================== */
+
+.code-block {
+  background: var(--charcoal-850);
+  border: 1px solid var(--charcoal-700);
+  border-radius: 8px;
+  padding: 1.25rem;
+  font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--warm-gray);
+  overflow-x: auto;
+  white-space: pre;
+}
+.code-block .kw { color: var(--amber); font-weight: 500; }
+.code-block .type { color: var(--amber-light); }
+.code-block .str { color: #a3e635; }
+.code-block .cmt { color: var(--warm-gray-dim); font-style: italic; }
+.code-block .num { color: var(--amber-light); }
+.code-block .fn { color: #93c5fd; }
+
+/* ========================================
+   Scroll-to-Top Button
+   ======================================== */
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--charcoal-850);
+  border: 1px solid var(--charcoal-600);
+  color: var(--warm-gray-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scroll-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.scroll-top-btn:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+/* ========================================
+   Page Fade-In
+   ======================================== */
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+body { animation: pageFadeIn 0.25s ease-out; }
+
+/* ========================================
+   Mermaid Zoom Indicator
+   ======================================== */
+
+.mermaid { position: relative; }
+.mermaid::after {
+  content: '\1F50D';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.mermaid:hover::after {
+  opacity: 0.4;
 }
