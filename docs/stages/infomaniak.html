@@ -83,20 +83,20 @@
         <h2 class="font-mono text-sm text-amber mb-4 section-divider"><span class="text-amber/40">//</span> Sécurité & Authentification</h2>
         <div class="space-y-4">
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Token Exchange (RFC 8693)</p>
-            <p class="text-sm text-warm/70">Implémentation d'un mécanisme de dérivation de token : un access token échangé contre un nouveau grant, avec restriction stricte par association émetteur/sujet/application cible. Contractualisation de la confiance inter-services.</p>
+            <p class="text-amber font-mono text-xs mb-2">// OAuth2</p>
+            <p class="text-sm text-warm/70">Implémentation d'un mécanisme de dérivation de token (grant OAuth2 token-exchange, RFC 8693) et implémentation de fonctionnalités custom sur le serveur d'autorisation OAuth2.</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Restriction OAuth2 par organisation</p>
-            <p class="text-sm text-warm/70">Restriction des applications OAuth2 aux seuls utilisateurs de l'organisation propriétaire. Validation au moment du consentement, après sélection de compte. Pattern Repository + Strategy (grant types).</p>
+            <p class="text-amber font-mono text-xs mb-2">Gestion d'accès interne</p>
+            <p class="text-sm text-warm/70">Incrément sur l'outil interne de gestion d'accès aux projets et bases de données (système critique), ajout de fonctionnalités, Fullstack sur ce projet (front-end vue js)</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// Investigation 2FA</p>
-            <p class="text-sm text-warm/70">Analyse d'une remontée de sécurité (bug bounty) sur le contournement potentiel de la 2FA. Cartographie du flux, identification des points de friction (state et code_challenge exposés dans un JWT post-déconnexion).</p>
+            <p class="text-amber font-mono text-xs mb-2">// Sécurité applicative</p>
+            <p class="text-sm text-warm/70">Analyse et évaluation de plusieurs remontées de bug bounty (YesWeHack) sur différentes parties du système (login, 2FA, serveur d'autorisation OAuth2)</p>
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
-            <p class="text-amber font-mono text-xs mb-2">// SAML2 + migration 2FA</p>
-            <p class="text-sm text-warm/70">Correction d'un bug SAML2 (trailing slash dans l'assertion SSO) et stabilisation de la migration de l'ancien système 2FA vers le nouvel Authenticator (edge cases, états transitoires).</p>
+            <p class="text-amber font-mono text-xs mb-2">// SSO</p>
+            <p class="text-sm text-warm/70">Maintenance, incrément et ajout de documentation support pour l'onboarding d'organisation utilisant la fonctionnalité Single-Sign-On</p>
           </div>
         </div>
       </section>
@@ -114,7 +114,7 @@
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
             <p class="text-amber font-mono text-xs mb-2">// Audit des permissions</p>
-            <p class="text-sm text-warm/70">Analyse des mécanismes de contrôle d'accès hétérogènes (scopes, attributs métier, listes statiques). Proposition d'un middleware unifié et segmentation des comptes de service (principe du moindre privilège).</p>
+            <p class="text-sm text-warm/70">Analyse des mécanismes de contrôle d'accès hétérogènes (scopes, attributs métier, listes statiques). Proposition de différentes solutions pour uniformiser le système et apporter de la granularité pour l'accès aux ressources internes par les collaborateurs</p>
           </div>
         </div>
       </section>
@@ -145,7 +145,7 @@ flowchart LR
           </div>
           <div class="bracket-card bg-coal-850 border border-coal-700/50 rounded-lg p-5">
             <p class="text-amber font-mono text-xs mb-2">// Méthodologie</p>
-            <p class="text-sm text-warm/70">Posture d'investigation : cartographier les flux avant de coder, formuler des hypothèses vérifiables. Revues de code comme espaces de justification technique.</p>
+            <p class="text-sm text-warm/70">Posture d'investigation : cartographier les flux avant de coder, formuler des hypothèses vérifiables. Revues de code et proactivité</p>
           </div>
         </div>
       </section>
