@@ -1,3 +1,3 @@
 ### 👋
 
-Réalisations @ https://alexischartier.github.io/AlexisChartier/
+Réalisations @ https://alexischartier.com
